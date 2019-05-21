@@ -8,6 +8,7 @@ import os
 
 from pi.tools.eagle import Eagle
 from pi.utils import merge_files
+from . import get_vcf_chromlist
 
 
 def eagle(config, input_file, output_prefix, options=None, reference_version=None, merge_multi_output=True):
@@ -22,7 +23,10 @@ def eagle(config, input_file, output_prefix, options=None, reference_version=Non
     # find the format of input file, default set to be "PLINK(bed/bim/fam)"
     input_format = "VCF" if input_file.endswith(".vcf.gz") or input_file.endswith(".vcf") else "PLINK"
 
+    # default for all chromosomes
     chromosomes = config["phasing_chromosome_1_22_X"][reference_version]
+    if input_format == "VCF":
+        chromosomes = get_vcf_chromlist(input_file)
 
     # Todo: set one process for each chromosome?
     out_phased_files = []
