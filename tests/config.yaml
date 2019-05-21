@@ -1,8 +1,8 @@
 eagle:
-    eagle: eagle
+    eagle: /home/huangshujia/biosoft/eagle/2.4.1/bin/eagle
     genetic_map_file:
-        GRCh37:
-        GRCh38:
+        GRCh37: /home/huangshujia/biosoft/eagle/2.4.1/tables/genetic_map_hg19_withX.txt.gz
+        GRCh38: /home/huangshujia/biosoft/eagle/2.4.1/tables/genetic_map_hg38_withX.txt.gz
 
 phasing_chromosome_1_22_X:
     GRCh37: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, X]
