@@ -3,6 +3,8 @@
 Author: Shujia Huang
 Date: 2019-05-20
 """
+import sys
+
 from pi.tools.eagle import Eagle
 from pi.utils import merge_files
 
@@ -37,29 +39,34 @@ def eagle(config, input_file, output_prefix, options=None, reference_version=Non
     out_phased_files = []
     for chr_id in chromosomes:
 
-        sub_outprefix = "%s.%s" % (output_prefix, chr_id)
-        sub_out_phased_file = "%s.vcf.gz" % sub_outprefix
-        if input_format == "PLINK":
-            # *.sample files are the same
-            sub_out_phased_file = ["%s.haps.gz" % sub_outprefix,
-                                   "%s.sample" % output_prefix]
+        try:
+            sub_outprefix = "%s.%s" % (output_prefix, chr_id)
+            sub_out_phased_file = "%s.vcf.gz" % sub_outprefix
+            if input_format == "PLINK":
+                # *.sample files are the same
+                sub_out_phased_file = ["%s.haps.gz" % sub_outprefix,
+                                       "%s.sample" % output_prefix]
 
-        # Set output and run eagle phasing process.
-        eagle_program.run(options + [("--chrom", chr_id), ("--outPrefix", sub_outprefix)])
-        out_phased_files.append(sub_out_phased_file)
+            # Set output and run eagle phasing process.
+            eagle_program.run(options + [("--chrom", chr_id), ("--outPrefix", sub_outprefix)])
+            out_phased_files.append(sub_out_phased_file)
+
+        except:
+            sys.stderr.write("[WARNING] job for phasing chrom %s is fail, which may "
+                             "cause by the input variants file hasn't chrom %s in it.\n")
+            continue
 
     # Todo: do something if setting one process for each chromosome
-
     # Merge into one single final output file.
     if merge_multi_output:
         if input_format == "VCF":
             final_out_phased_file = "%s.vcf.gz" % output_prefix
-            merge_files(out_phased_files, final_out_phased_file)
+            merge_files(out_phased_files, final_out_phased_file, is_del_raw_file=True)
             return final_out_phased_file
         else:
             # PLINK format
             final_out_haps_file = "%s.haps.gz" % output_prefix
-            merge_files([h for h, _ in out_phased_files], final_out_haps_file)
+            merge_files([h for h, _ in out_phased_files], final_out_haps_file, is_del_raw_file=True)
             return final_out_haps_file, out_phased_files[0][1]
     else:
 
