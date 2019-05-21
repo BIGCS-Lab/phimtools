@@ -97,7 +97,7 @@ def eagle_chromosome(config, input_file, output_prefix, chr_id, options=None, re
         return sub_out_phased_file
 
     except:
-        sys.stderr.write("[WARNING] job for phasing chrom %s is fail, which may cause by the "
-                         "input variants file hasn't chrom %s in %s.\n" % (chr_id, chr_id, input_file))
+        sys.stderr.write("[WARNING] job for phasing chrom %s is fail, can't find "
+                         "chrom %s in %s.\n" % (chr_id, chr_id, input_file))
         return
 
