@@ -81,20 +81,20 @@ def eagle_chromosome(config, input_file, output_prefix, chr_id, options=None, re
     input_format = "VCF" if input_file.endswith(".vcf.gz") or input_file.endswith(".vcf") else "PLINK"
 
     # set input file
-    input_file = ()
+    input_file_param = ()
     if input_format == "VCF":
-        input_file = ("--vcf", input_file)
+        input_file_param = ("--vcf", input_file)
 
     else:
         # do not compress you PLINK data by gzip or bgzip.
-        input_file = ("--bfile", input_file)
+        input_file_param = ("--bfile", input_file)
 
     sub_out_phased_file = "%s.vcf.gz" % output_prefix
     if input_format == "PLINK":
         # *.sample files are the same
         sub_out_phased_file = ["%s.haps.gz" % output_prefix, "%s.sample" % output_prefix]
 
-    cmd_options = options + [input_file] + [("--chrom", chr_id), ("--outPrefix", output_prefix)]
+    cmd_options = options + [input_file_param] + [("--chrom", chr_id), ("--outPrefix", output_prefix)]
     eagle_program = Eagle(config, reference_version=reference_version)
     try:
         # Set output and run eagle phasing process.
