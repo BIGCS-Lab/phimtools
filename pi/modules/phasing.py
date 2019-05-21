@@ -81,7 +81,6 @@ def eagle_chromosome(config, input_file, output_prefix, chr_id, options=None, re
     input_format = "VCF" if input_file.endswith(".vcf.gz") or input_file.endswith(".vcf") else "PLINK"
 
     # set input file
-    input_file_param = ()
     if input_format == "VCF":
         input_file_param = ("--vcf", input_file)
 
@@ -94,7 +93,7 @@ def eagle_chromosome(config, input_file, output_prefix, chr_id, options=None, re
         # *.sample files are the same
         sub_out_phased_file = ["%s.haps.gz" % output_prefix, "%s.sample" % output_prefix]
 
-    cmd_options = options + [input_file_param] + [("--chrom", chr_id), ("--outPrefix", output_prefix)]
+    cmd_options = options + [input_file_param, ("--chrom", chr_id), ("--outPrefix", output_prefix)]
     eagle_program = Eagle(config, reference_version=reference_version)
     try:
         # Set output and run eagle phasing process.
