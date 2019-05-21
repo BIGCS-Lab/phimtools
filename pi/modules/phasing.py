@@ -15,7 +15,6 @@ def eagle(config, input_file, output_prefix, options=None, reference_version=Non
     """A function for running eagle.
 
     Parameters:
-        ``format``: Must be VCF or PLINK
         ``options``: A tuple list of eagle parameters
         ``reference_version``: A string.
                 set reference version for phasing process
@@ -78,7 +77,6 @@ def eagle_chromosome(config, input_file, output_prefix, chr_id, options=None, re
     """A phasing function by eagle for a single one chromosome.
 
     Parameters:
-        ``format``: Must be VCF or PLINK
         ``chr_id``: Chromosome for phasing
         ``options``: A tuple list of eagle parameters
         ``reference_version``: A string.
