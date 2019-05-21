@@ -25,7 +25,8 @@ class Eagle(object):
             ``options``: A tuple like
                 Options for Eagle.
         """
-        cmd = " ".join([self.eagle] + ["%s=%s" % (p, v) for p, v in options])
+        cmd = " ".join([self.eagle] + ["--geneticMapFile=%s" % self.genetic_map_file] + 
+                       ["%s=%s" % (p, v) for p, v in options])
         do.run(cmd)
 
         return
