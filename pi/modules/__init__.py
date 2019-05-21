@@ -8,7 +8,7 @@ from pi.utils import Open
 def get_vcf_chromlist(input_file):
 
     chr_list = set()
-    with Open(input_file) as C:
+    with Open(input_file, "r") as C:
         for line in C:
             if line.startswith("#"):
                 continue
