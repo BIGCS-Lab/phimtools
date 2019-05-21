@@ -36,7 +36,7 @@ def eagle(config, input_file, output_prefix, options=None, reference_version=Non
         21	rs58296537	0.415776	38358682	G	C
         21	rs150853915	0.415796	38361458	T	C
         """
-        chromosomes = get_chromlist(input_file+".bim")
+        chromosomes = get_chromlist(input_file + ".bim")
 
     # Todo: set one process for each chromosome?
     out_phased_files = []
@@ -114,4 +114,3 @@ def eagle_chromosome(config, input_file, output_prefix, chr_id, options=None, re
         sys.stderr.write("[WARNING] job for phasing chrom %s is fail, can't find "
                          "chrom %s in %s.\n" % (chr_id, chr_id, input_file))
         return
-
