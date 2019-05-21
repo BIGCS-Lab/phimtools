@@ -17,8 +17,7 @@ def run(cmd, descr=None, checks=None, log_stdout=False, env=None):
         logger.info(descr)
 
     try:
-        logger_cmd.debug(" ".join(map(str, cmd))
-                         if not isinstance(cmd, basestring) else cmd)
+        logger_cmd.debug(" ".join(map(str, cmd)) if not isinstance(cmd, str) else cmd)
         _do_run(cmd, checks, log_stdout=log_stdout, env=env)
     except:
         logger.exception()
@@ -48,7 +47,7 @@ def _normalize_cmd_args(cmd):
     Piped commands set pipefail and require use of bash to help with debugging
     intermediate errors.
     """
-    if isinstance(cmd, basestring):
+    if isinstance(cmd, str):
         # check for standard or anonymous named pipes
         if cmd.find(" | ") > 0 or cmd.find(">(") or cmd.find("<("):
             return "set -o pipefail; " + cmd, True, find_bash()
@@ -89,7 +88,7 @@ def _do_run(cmd, checks, log_stdout=False, env=None):
 
             if exitcode is not None and exitcode != 0:
 
-                error_msg = " ".join(cmd) if not isinstance(cmd, basestring) else cmd
+                error_msg = " ".join(cmd) if not isinstance(cmd, str) else cmd
                 error_msg += "\n"
                 error_msg += "".join(debug_stdout)
 
@@ -101,7 +100,7 @@ def _do_run(cmd, checks, log_stdout=False, env=None):
             else:
 
                 # output logo information
-                print ("".join(debug_stdout))
+                print("".join(debug_stdout))
                 break
 
     p.communicate()
