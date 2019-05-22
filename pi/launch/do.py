@@ -100,7 +100,7 @@ def _do_run(cmd, checks, log_stdout=False, env=None):
             else:
 
                 # output logo information
-                print("".join(debug_stdout))
+                print("".join(map(str, debug_stdout)))
                 break
 
     p.communicate()

@@ -12,6 +12,9 @@ class Minimac(object):
     def __init__(self, config, reference_panel=None):
         """basical setting for Minimac"""
 
+        if reference_panel is None:
+            return
+
         self.minimac = config["minimac"]["minimac"]
         self.ref_panel = config["minimac"]["reference_panel"][reference_panel]
 
@@ -26,7 +29,9 @@ class Minimac(object):
             ``options``: A tuple like
                 Options for Eagle.
         """
-        cmd = " ".join([self.minimac] + ["--refHaps %s" % self.ref_panel] +
+        # Do not output VCF in gzip compress by Minimac3, it has some problem!
+        cmd = " ".join([self.minimac] + ["--refHaps %s" % self.ref_panel] + ["--nobgzip"] +
                        ["%s %s" % (p, v) for p, v in options])
+
         do.run(cmd)
         return

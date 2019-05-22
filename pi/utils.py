@@ -208,7 +208,7 @@ def merge_files(temp_file_names, final_file_name, is_del_raw_file=False):
 
     # Initialise queue
     for index, file_name in enumerate(temp_file_names):
-        the_file = Open(file_name, 'rb')
+        the_file = Open(file_name, 'r')
 
         for line in the_file:
 
