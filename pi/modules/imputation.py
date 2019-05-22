@@ -83,8 +83,10 @@ def minimac_chromosome(config, input_file, output_prefix, chr_id, nCPU=1, option
     minimac_program = Minimac(config, reference_panel=reference_panel)
 
     # Todo: set reference region by --start and --end not just for the whole chromosome
-    cmd_options = options + [("--cpus", nCPU), ("--haps", phased_file), ("--chr", chr_id),
-                             ("--prefix", output_prefix)]
+    if "--cpus" not in options:
+        options.append(("--cpus", nCPU))
+
+    cmd_options = options + [("--haps", phased_file), ("--chr", chr_id), ("--prefix", output_prefix)]
 
     minimac_program.run(cmd_options)
     return [out_impute_vcf, out_impute_rec, out_impute_erate, out_impute_info]
