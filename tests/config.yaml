@@ -7,7 +7,7 @@ eagle:
 minimac:
     minimac: /home/huangshujia/biosoft/minimac/Minimac3/bin/Minimac3
     reference_panel:
-        1000G_P3_GRCh37: ""
+        1000G_P3_GRCh37: /home/huangshujia/ngs_data_collection/minimac3_reference_panel/21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
         1000G_P3_GRCh38: ""
         HRC_GRCh37: ""
         HRC_GRCh38: ""

@@ -33,9 +33,16 @@ if __name__ == "__main__":
           packages=find_packages(),
           install_requires=[
               'pyaml',
+              'logbook'
           ],
           version=VERSION,
           include_package_data=True,
+          # scripts=[],
+          entry_points={
+              'console_scripts': [
+                  'pi = pi.pi_process:main'
+              ]
+          },
           classifiers=[
              'Intended Audience :: Science/Research',
              'Programming Language :: Python :: 2.7',

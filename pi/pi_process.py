@@ -45,9 +45,8 @@ def parse_commandline_args(args):
     #                            help="Tool for pre-phase before imputation. "
     #                                 "If not set do not process pre-phase. [eagle]")
 
-    impute_parser.add_argument("-I", "--input", dest="in_vcf", action="append", default=[], required=True,
-                               help="Input one or more VCF files to analyze. This argument "
-                                    "must be specified at least once. Required")
+    impute_parser.add_argument("-I", "--input", dest="in_vcf", required=True,
+                               help="Input one VCF file to analyze. Required")
 
     impute_parser.add_argument("-O", "--outprefix", dest="out_prefix", required=True,
                                help="Prefix for output files. Required")
@@ -82,7 +81,7 @@ def main():
 
     checkconfig(config)
 
-    if "impute" in kwargs:
+    if "impute" in sys.argv[1:] and kwargs:
         runfunction.imputation(kwargs, config)
 
     elapsed_time = datetime.now() - START_TIME

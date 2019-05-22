@@ -44,7 +44,7 @@ def minimac(config, input_file, output_prefix, nCPU=1, options=None, reference_p
 
     # Todo: Merge different kinds of output files
     if merge_multi_output:
-        final_out_impute_file = "%s.vcf.gz" % output_prefix
+        final_out_impute_file = "%s.final.vcf.gz" % output_prefix
         merge_files([f[0] for f in out_impute_files], final_out_impute_file,
                     is_del_raw_file=True)
 

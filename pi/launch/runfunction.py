@@ -11,7 +11,7 @@ def imputation(kwargs, config):
 
     # Todo: options parameter is not been used. Think about it!
     # Todo: we need multiple methods for impute and pre-phase
-    if kwargs.methods == "minimac":
+    if kwargs.impute_method == "minimac":
         minimac_impute(config,
                        kwargs.in_vcf,
                        kwargs.out_prefix,
