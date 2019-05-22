@@ -20,7 +20,7 @@ def minimac(config, input_file, output_prefix, nCPU=1, options=None, reference_p
         ``reference_panel``: A string.
                 The reference panel for imputation process
     """
-    if not input_file.endswith("*.vcf.gz") and not input_file.endswith(".vcf"):
+    if not input_file.endswith(".vcf.gz") and not input_file.endswith(".vcf"):
         sys.stderr.write("[ERROR] The format of input file is not a *.vcf.gz or *.vcf\n")
         sys.exit(1)
 
