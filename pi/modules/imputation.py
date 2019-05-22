@@ -72,7 +72,7 @@ def minimac_chromosome(config, input_file, output_prefix, chr_id, options=None, 
 
     if is_prephase:
         # pre-phasing
-        phased_file = eagle_chromosome(config, input_file, output_prefix, chr_id,
+        phased_file = eagle_chromosome(config, input_file, output_prefix + ".phased", chr_id,
                                        reference_version=reference_version)
     else:
         # do not pre-phase, usually because input_file is already a phased result
