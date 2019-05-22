@@ -29,8 +29,7 @@ class Minimac(object):
             ``options``: A tuple like
                 Options for Eagle.
         """
-        # Do not output VCF in gzip compress by Minimac3, it has some problem!
-        cmd = " ".join([self.minimac] + ["--refHaps %s" % self.ref_panel] + ["--nobgzip"] +
+        cmd = " ".join([self.minimac] + ["--refHaps %s" % self.ref_panel] +
                        ["%s %s" % (p, v) for p, v in options])
 
         do.run(cmd)

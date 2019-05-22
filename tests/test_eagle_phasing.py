@@ -47,6 +47,6 @@ if __name__ == "__main__":
         config = yaml.load(C)
 
     # test_out_eagle_help_info(config)
-    test_phasing_vcf_format(config)
+    # test_phasing_vcf_format(config)
     # test_phasing_PLINK_format(config)
-    # test_phasing_multi_process(config)
+    test_phasing_multi_process(config)

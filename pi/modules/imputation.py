@@ -45,7 +45,7 @@ def minimac(config, input_file, output_prefix, options=None, reference_panel=Non
     if merge_multi_output:
         final_out_impute_file = "%s.vcf.gz" % output_prefix
         merge_files([f[0] for f in out_impute_files], final_out_impute_file,
-                    is_del_raw_file=False)
+                    is_del_raw_file=True)
 
         return final_out_impute_file
 
@@ -65,7 +65,7 @@ def minimac_chromosome(config, input_file, output_prefix, chr_id, options=None, 
     if options is None:
         options = []
 
-    out_impute_vcf = "%s.dose.vcf" % output_prefix
+    out_impute_vcf = "%s.dose.vcf.gz" % output_prefix
     out_impute_rec = "%s.rec" % output_prefix
     out_impute_erate = "%s.erate" % output_prefix
     out_impute_info = "%s.info" % output_prefix
