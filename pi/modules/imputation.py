@@ -11,7 +11,7 @@ from pi.utils import merge_files
 from . import get_chromlist
 
 
-def minimac(config, input_file, output_prefix, options=None, reference_panel=None,
+def minimac(config, input_file, output_prefix, nCPU=1, options=None, reference_panel=None,
             reference_version=None, merge_multi_output=True, is_prephase=True):
     """A function for running Minimac.
 
@@ -33,6 +33,7 @@ def minimac(config, input_file, output_prefix, options=None, reference_panel=Non
                                                   input_file,
                                                   sub_outprefix,
                                                   chr_id,
+                                                  nCPU=nCPU,
                                                   options=options,
                                                   reference_panel=reference_panel,
                                                   reference_version=reference_version,
@@ -52,7 +53,7 @@ def minimac(config, input_file, output_prefix, options=None, reference_panel=Non
     return out_impute_files
 
 
-def minimac_chromosome(config, input_file, output_prefix, chr_id, options=None, reference_panel=None,
+def minimac_chromosome(config, input_file, output_prefix, chr_id, nCPU=1, options=None, reference_panel=None,
                        reference_version=None, is_prephase=True):
     """Impute for a single chromosome.
 
@@ -73,6 +74,7 @@ def minimac_chromosome(config, input_file, output_prefix, chr_id, options=None, 
     if is_prephase:
         # pre-phasing
         phased_file = eagle_chromosome(config, input_file, output_prefix + ".phased", chr_id,
+                                       options=[("--numThreads", nCPU)],
                                        reference_version=reference_version)
     else:
         # do not pre-phase, usually because input_file is already a phased result
@@ -81,7 +83,8 @@ def minimac_chromosome(config, input_file, output_prefix, chr_id, options=None, 
     minimac_program = Minimac(config, reference_panel=reference_panel)
 
     # Todo: set reference region by --start and --end not just for the whole chromosome
-    cmd_options = options + [("--haps", phased_file), ("--chr", chr_id), ("--prefix", output_prefix)]
+    cmd_options = options + [("--cpus", nCPU), ("--haps", phased_file), ("--chr", chr_id),
+                             ("--prefix", output_prefix)]
 
     minimac_program.run(cmd_options)
     return [out_impute_vcf, out_impute_rec, out_impute_erate, out_impute_info]

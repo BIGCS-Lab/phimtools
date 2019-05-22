@@ -16,7 +16,14 @@ def test_minimac_help_info(config):
 
 
 def test_impute_multi_process(config):
-    pass
+    minimac_impute(config,
+                   "data/minimac/targetStudy.vcf",
+                   "%s/test.imputed" % out_dir,
+                   options=[("--cpus", 4)],
+                   reference_panel="test_panel_GRCh37",
+                   reference_version="GRCh37",
+                   merge_multi_output=True,
+                   is_prephase=False)
 
 
 def test_impute(config):
@@ -37,4 +44,5 @@ if __name__ == "__main__":
         config = yaml.safe_load(C)
 
     # test_minimac_help_info(config)
-    test_impute(config)
+    # test_impute(config)
+    test_impute_multi_process(config)
