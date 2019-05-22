@@ -5,12 +5,12 @@ eagle:
         GRCh38: /home/huangshujia/biosoft/eagle/2.4.1/tables/genetic_map_hg38_withX.txt.gz
 
 minimac:
-    minimac:
+    minimac: /home/huangshujia/biosoft/minimac/Minimac3/bin/Minimac3
     reference_panel:
-        1000G_P3_GRCh37:
-        1000G_P3_GRCh38:
-        HRC_GRCh37:
-        HRC_GRCh38:
-        CNRP_GRCh37:
-        CNRP_GRCh38:
-
+        1000G_P3_GRCh37: ""
+        1000G_P3_GRCh38: ""
+        HRC_GRCh37: ""
+        HRC_GRCh38: ""
+        CNRP_GRCh37: ""
+        CNRP_GRCh38: ""
+        test_panel_GRCh37: /home/huangshujia/biosoft/minimac/Minimac3/test/refPanel.m3vcf.gz
