@@ -33,7 +33,7 @@ if __name__ == "__main__":
           packages=find_packages(),
           install_requires=[
               'pyaml',
-              'logbook'
+              'Logbook'
           ],
           version=VERSION,
           include_package_data=True,
