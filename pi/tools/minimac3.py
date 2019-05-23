@@ -22,14 +22,16 @@ class Minimac(object):
         """Help information for Minimac program"""
         return do.run("%s --help" % self.minimac)
 
-    def run(self, options):
+    def run(self, chr_id, options):
         """Run a Eagle command with the provide options.
 
         Parameters:
+            ``chr_id``: String
+                The chromosome id
             ``options``: A tuple like
                 Options for Eagle.
         """
-        cmd = " ".join([self.minimac] + ["--refHaps %s" % self.ref_panel] +
+        cmd = " ".join([self.minimac] + ["--refHaps %s" % self.ref_panel[chr_id]] +
                        ["%s %s" % (p, v) for p, v in options])
 
         do.run(cmd)

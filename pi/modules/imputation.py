@@ -87,7 +87,6 @@ def minimac_chromosome(config, input_file, output_prefix, chr_id, nCPU=1, option
         options.append(("--cpus", nCPU))
 
     cmd_options = options + [("--haps", phased_file), ("--chr", chr_id), ("--prefix", output_prefix)]
-
-    minimac_program.run(cmd_options)
+    minimac_program.run(chr_id, cmd_options)
     return [out_impute_vcf, out_impute_rec, out_impute_erate, out_impute_info]
 

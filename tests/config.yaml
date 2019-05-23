@@ -7,7 +7,30 @@ eagle:
 minimac:
     minimac: /home/huangshujia/biosoft/minimac/Minimac3/bin/Minimac3
     reference_panel:
-        1000G_P3_GRCh37: /home/huangshujia/ngs_data_collection/minimac3_reference_panel/21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+        1000G_P3_GRCh37:
+            '1': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/1.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '2': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/2.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '3': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/3.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '4': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/4.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '5': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/5.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '6': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/6.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '7': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/7.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '8': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/8.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '9': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/9.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '10': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/10.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '11': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/11.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '12': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/12.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '13': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/13.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '14': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/14.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '15': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/15.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '16': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/16.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '17': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/17.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '18': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/18.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '19': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/19.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '20': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/20.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '21': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/21.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            '22': /home/huangshujia/ngs_data_collection/minimac3_reference_panel/22.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
+            'X' : /home/huangshujia/ngs_data_collection/minimac3_reference_panel/X.Non.Pseudo.Auto.1000g.Phase3.v5.With.Parameter.Estimates.m3vcf.gz
         1000G_P3_GRCh38: ""
         HRC_GRCh37: ""
         HRC_GRCh38: ""
