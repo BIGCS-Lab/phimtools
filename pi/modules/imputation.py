@@ -28,6 +28,12 @@ def minimac(config, input_file, output_prefix, nCPU=1, options=None, reference_p
     out_impute_files = []
     for chr_id in chromosomes:
 
+        # ignore the chromosome which not in the reference panel, which may happen in chromosome X
+        if chr_id not in config["minimac"]["reference_panel"][reference_panel]:
+            sys.stderr.write("[WARNING] chromosome %s is not in the panel: %s, which will not been "
+                             "imputed in your final result.\n" % (chr_id, reference_panel))
+            continue
+
         sub_outprefix = "%s.%s" % (output_prefix, chr_id)
         sub_out_impute_files = minimac_chromosome(config,
                                                   input_file,
@@ -88,5 +94,6 @@ def minimac_chromosome(config, input_file, output_prefix, chr_id, nCPU=1, option
 
     cmd_options = options + [("--haps", phased_file), ("--chr", chr_id), ("--prefix", output_prefix)]
     minimac_program.run(chr_id, cmd_options)
+
     return [out_impute_vcf, out_impute_rec, out_impute_erate, out_impute_info]
 
