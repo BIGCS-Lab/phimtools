@@ -14,17 +14,17 @@ from pi.launch import runfunction
 
 VERSION = "0.1.0"
 LONG_DESC = """
------------------------------------------------------------------
-      pi - A pipeline for phasing and imputation analysis.     
------------------------------------------------------------------
+------------------------------------------------------------------
+       pi - A pipeline for phasing and imputation analysis.     
+------------------------------------------------------------------
                    (c) 2019 - Shujia Huang                      
-      Distributed under the GNU GPLv3+ open source license.    
+       Distributed under the GNU GPLv3+ open source license.    
 
-Version %s                                                     
+Version {version}                                                     
 
 URL = https://github.com/ShujiaHuang/pi                           
 -----------------------------------------------------------------
-""" % (VERSION)
+""".format(version=VERSION)
 
 
 def parse_commandline_args(args):
