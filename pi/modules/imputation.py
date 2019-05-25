@@ -70,6 +70,7 @@ def minimac_chromosome(config, input_file, output_prefix, chr_id, nCPU=1, option
         ``reference_version``: A string.
                 set reference version for phasing process
     """
+    Log.info("Performing imputation process for chromosome %s by using Minimac3." % chr_id)
     if options is None:
         options = []
 

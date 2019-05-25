@@ -82,6 +82,7 @@ def eagle_chromosome(config, input_file, output_prefix, chr_id, options=None, re
         ``reference_version``: A string.
                 set reference version for phasing process
     """
+    Log.info("Performing phasing process for chromosome %s by using Eagle." % chr_id)
     if options is None:
         options = []
 
@@ -109,6 +110,6 @@ def eagle_chromosome(config, input_file, output_prefix, chr_id, options=None, re
         return sub_out_phased_file
 
     except:
-        Log.warn("job for phasing chrom %s is fail, can't find "
-                 "chrom %s in %s.\n" % (chr_id, chr_id, input_file))
+        Log.warn("job for phasing chrom %s is fail, can't find chromosome "
+                 "%s in %s.\n" % (chr_id, chr_id, input_file))
         return
