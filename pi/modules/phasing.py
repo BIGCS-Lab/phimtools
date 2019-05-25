@@ -3,11 +3,11 @@
 Author: Shujia Huang
 Date: 2019-05-20
 """
-import sys
 import os
 
 from pi.tools.eagle import Eagle
 from pi.utils import merge_files
+from pi.log import Log
 from . import get_chromlist
 
 
@@ -42,8 +42,8 @@ def eagle(config, input_file, output_prefix, options=None, reference_version=Non
     for chr_id in chromosomes:
 
         sub_outprefix = "%s.%s" % (output_prefix, chr_id)
-        sub_out_phased_file = eagle_chromosome(config, input_file, sub_outprefix, chr_id,
-                                               options=options, reference_version=reference_version)
+        sub_out_phased_file = eagle_chromosome(config, input_file, sub_outprefix, chr_id, options=options,
+                                               reference_version=reference_version)
         if sub_out_phased_file:
             out_phased_files.append(sub_out_phased_file)
 
@@ -109,6 +109,6 @@ def eagle_chromosome(config, input_file, output_prefix, chr_id, options=None, re
         return sub_out_phased_file
 
     except:
-        sys.stderr.write("[WARNING] job for phasing chrom %s is fail, can't find "
-                         "chrom %s in %s.\n" % (chr_id, chr_id, input_file))
+        Log.warn("job for phasing chrom %s is fail, can't find "
+                 "chrom %s in %s.\n" % (chr_id, chr_id, input_file))
         return

@@ -12,6 +12,7 @@ from datetime import datetime
 
 from pi.utils import file_exists
 from pi.launch import runfunction
+from pi.log import Log
 
 VERSION = "0.1.0"
 LONG_DESC = """
@@ -67,55 +68,55 @@ def checkconfig(config, kwargs):
 
     phase = "eagle"
     if phase not in config:
-        sys.stderr.write("[ERROR] Missing '%s' in config file.\n%s\n" % (phase, conf_msg))
+        Log.error("Missing '%s' in config file.\n%s\n" % (phase, conf_msg))
         sys.exit(1)
 
     if phase not in config[phase]:
-        sys.stderr.write("[ERROR] Missing set '%s' path for phasing.\n%s\n" % (phase, conf_msg))
+        Log.error("Missing set '%s' path for phasing.\n%s\n" % (phase, conf_msg))
         sys.exit(1)
 
     if not file_exists(config[phase][phase]):
-        sys.stderr.write("[ERROR] %s program is not existed in %s, "
-                         "please check your configuration.\n" % (phase, config[phase][phase]))
+        Log.error("%s program is not existed in %s, please check your "
+                  "configuration.\n" % (phase, config[phase][phase]))
         sys.exit(1)
 
     if "genetic_map_file" not in config[phase]:
-        sys.stderr.write("[ERROR] Missing genetic_map_file for %s in config file.\n%s\n" % (phase, conf_msg))
+        Log.error("Missing genetic_map_file for %s in config file.\n%s\n" % (phase, conf_msg))
         sys.exit(1)
 
     if kwargs.refbuild not in config[phase]["genetic_map_file"]:
         k = ",".join(config[phase]["genetic_map_file"].keys())
-        sys.stderr.write("[ERROR] %s is not been setted for %s in config file. The key of "
-                         "genetic_map_file can only be:\n%s\n%s\n" % (kwargs.refbuild, phase, k, conf_msg))
+        Log.error("is not been setted for %s in config file. The key of genetic_map_file "
+                  "can only be:\n%s\n%s\n" % (kwargs.refbuild, phase, k, conf_msg))
         sys.exit(1)
 
     impute = kwargs.impute_method
     if impute not in config:
-        sys.stderr.write("[ERROR] Missing '%s' in config file.\n%s\n" % (impute,  conf_msg))
+        Log.error("Missing '%s' in config file.\n%s\n" % (impute, conf_msg))
         sys.exit(1)
 
     if impute not in config[impute]:
-        sys.stderr.write("[ERROR] Missing set '%s' path for phasing.\n%s\n" % (impute, conf_msg))
+        Log.error("Missing set '%s' path for phasing.\n%s\n" % (impute, conf_msg))
         sys.exit(1)
 
     if not file_exists(config[impute][impute]):
-        sys.stderr.write("[ERROR] %s program is not existed in %s, please check your "
-                         "configuration.\n" % (impute, config[impute][impute]))
+        Log.error("[ERROR] %s program is not existed in %s, please check your "
+                  "configuration.\n" % (impute, config[impute][impute]))
         sys.exit(1)
 
     if "reference_panel" not in config[impute]:
-        sys.stderr.write("[ERROR] Missing reference_panel for %s in config file.\n%s\n" % (impute, conf_msg))
+        Log.error("Missing reference_panel for %s in config file.\n%s\n" % (impute, conf_msg))
         sys.exit(1)
 
     if kwargs.refpanel not in config[impute]["reference_panel"]:
         k = ",".join(config[impute]["reference_panel"].keys())
-        sys.stderr.write("[ERROR] %s is not been setted in config file. The key of reference_panel "
-                         "can only be:\n%s\n%s\n" % (kwargs.refpanel, k, conf_msg))
+        Log.error("%s is not been setted in config file. The key of reference_panel "
+                  "can only be:\n%s\n%s\n" % (kwargs.refpanel, k, conf_msg))
         sys.exit(1)
 
     for _, v in config[impute]["reference_panel"][kwargs.refpanel].items():
         if not file_exists(v):
-            sys.stderr.write("[ERROR] %s not exists, please check the configuration file.\n" % v)
+            Log.error("%s not exists, please check the configuration file.\n" % v)
             sys.exit(1)
 
     return
@@ -123,14 +124,14 @@ def checkconfig(config, kwargs):
 
 def main():
     """Main function"""
-    START_TIME = datetime.now()
+    start_time = datetime.now()
 
     sys.stderr.write("%s\n" % LONG_DESC)
 
     kwargs = parse_commandline_args(sys.argv[1:])
 
     if "config" not in kwargs:
-        sys.stderr.write("Error: missing YAML configuration files by -C (--conf).\n")
+        Log.error("missing YAML configuration files by -C (--conf).\n")
         sys.exit(1)
 
     with open(kwargs.config) as C:
@@ -141,8 +142,8 @@ def main():
     if "impute" in sys.argv[1:] and kwargs:
         runfunction.imputation(kwargs, config)
 
-    elapsed_time = datetime.now() - START_TIME
-    print("\n** %s done, %d seconds elapsed **\n" % (sys.argv[1], elapsed_time.seconds))
+    elapsed_time = datetime.now() - start_time
+    Log.info("\n** %s done, %d seconds elapsed **\n" % (sys.argv[1], elapsed_time.seconds))
 
 
 if __name__ == "__main__":

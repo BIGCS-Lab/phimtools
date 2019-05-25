@@ -8,6 +8,7 @@ import sys
 from pi.tools.minimac3 import Minimac
 from pi.modules.phasing import eagle_chromosome
 from pi.utils import merge_files
+from pi.log import Log
 from . import get_chromlist
 
 
@@ -21,7 +22,7 @@ def minimac(config, input_file, output_prefix, nCPU=1, options=None, reference_p
                 The reference panel for imputation process
     """
     if not input_file.endswith(".vcf.gz") and not input_file.endswith(".vcf"):
-        sys.stderr.write("[ERROR] The format of input file is not a *.vcf.gz or *.vcf\n")
+        Log.error("The format of input file is not a *.vcf.gz or *.vcf\n")
         sys.exit(1)
 
     chromosomes = get_chromlist(input_file)
@@ -30,8 +31,8 @@ def minimac(config, input_file, output_prefix, nCPU=1, options=None, reference_p
 
         # ignore the chromosome which not in the reference panel, which may happen in chromosome X
         if chr_id not in config["minimac"]["reference_panel"][reference_panel]:
-            sys.stderr.write("[WARNING] chromosome %s is not in the panel: %s, which will not been "
-                             "imputed in your final result.\n" % (chr_id, reference_panel))
+            Log.warn("[WARNING] chromosome %s is not in the panel: %s, which will not been "
+                     "imputed in your final result.\n" % (chr_id, reference_panel))
             continue
 
         sub_outprefix = "%s.%s" % (output_prefix, chr_id)
