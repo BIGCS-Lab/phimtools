@@ -100,7 +100,7 @@ def checkconfig(config, kwargs):
         sys.exit(1)
 
     if not file_exists(config[impute][impute]):
-        Log.error("[ERROR] %s program is not existed in %s, please check your "
+        Log.error("%s program is not existed in %s, please check your "
                   "configuration.\n" % (impute, config[impute][impute]))
         sys.exit(1)
 
