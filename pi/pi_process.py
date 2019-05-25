@@ -10,6 +10,7 @@ import yaml
 
 from datetime import datetime
 
+from pi.utils import file_exists
 from pi.launch import runfunction
 
 VERSION = "0.1.0"
@@ -52,16 +53,72 @@ def parse_commandline_args(args):
                                help="Prefix for output files. Required")
     impute_parser.add_argument("--refpanel-version", dest="refpanel", required=True,
                                help="The version of haplotype data for reference panel. Required")
-    impute_parser.add_argument("--reference-build", dest="refbuild",
-                               help="The build version of reference. [GRCh37]")
+    impute_parser.add_argument("--reference-build", dest="refbuild", required=True,
+                               help="The build version of reference, e.g: GRCh37")
     impute_parser.add_argument("--nCPU", dest="nCPU", type=int, default=1, help="Number of threads. [1]")
 
     return parser.parse_args(args)
 
 
-def checkconfig(config):
+def checkconfig(config, kwargs):
     """Check the most important parameters is setted or not."""
-    pass
+
+    conf_msg = "Please find an example: https://github.com/ShujiaHuang/pi/blob/master/tests/config.yaml"
+
+    phase = "eagle"
+    if phase not in config:
+        sys.stderr.write("[ERROR] Missing '%s' in config file.\n%s\n" % (phase, conf_msg))
+        sys.exit(1)
+
+    if phase not in config[phase]:
+        sys.stderr.write("[ERROR] Missing set '%s' path for phasing.\n%s\n" % (phase, conf_msg))
+        sys.exit(1)
+
+    if not file_exists(config[phase][phase]):
+        sys.stderr.write("[ERROR] %s program is not existed in %s, "
+                         "please check your configuration.\n" % (phase, config[phase][phase]))
+        sys.exit(1)
+
+    if "genetic_map_file" not in config[phase]:
+        sys.stderr.write("[ERROR] Missing genetic_map_file for %s in config file.\n%s\n" % (phase, conf_msg))
+        sys.exit(1)
+
+    if kwargs.refbuild not in config[phase]["genetic_map_file"]:
+        k = ",".join(config[phase]["genetic_map_file"].keys())
+        sys.stderr.write("[ERROR] %s is not been setted for %s in config file. The key of "
+                         "genetic_map_file can only be:\n%s\n%s\n" % (kwargs.refbuild, phase, k, conf_msg))
+        sys.exit(1)
+
+    impute = kwargs.impute_method
+    if impute not in config:
+        sys.stderr.write("[ERROR] Missing '%s' in config file.\n%s\n" % (impute,  conf_msg))
+        sys.exit(1)
+
+    if impute not in config[impute]:
+        sys.stderr.write("[ERROR] Missing set '%s' path for phasing.\n%s\n" % (impute, conf_msg))
+        sys.exit(1)
+
+    if not file_exists(config[impute][impute]):
+        sys.stderr.write("[ERROR] %s program is not existed in %s, please check your "
+                         "configuration.\n" % (impute, config[impute][impute]))
+        sys.exit(1)
+
+    if "reference_panel" not in config[impute]:
+        sys.stderr.write("[ERROR] Missing reference_panel for %s in config file.\n%s\n" % (impute, conf_msg))
+        sys.exit(1)
+
+    if kwargs.refpanel not in config[impute]["reference_panel"]:
+        k = ",".join(config[impute]["reference_panel"].keys())
+        sys.stderr.write("[ERROR] %s is not been setted in config file. The key of reference_panel "
+                         "can only be:\n%s\n%s\n" % (kwargs.refpanel, k, conf_msg))
+        sys.exit(1)
+
+    for _, v in config[impute]["reference_panel"][kwargs.refpanel].items():
+        if not file_exists(v):
+            sys.stderr.write("[ERROR] %s not exists, please check the configuration file.\n" % v)
+            sys.exit(1)
+
+    return
 
 
 def main():
@@ -79,7 +136,7 @@ def main():
     with open(kwargs.config) as C:
         config = yaml.load(C)
 
-    checkconfig(config)
+    checkconfig(config, kwargs)
 
     if "impute" in sys.argv[1:] and kwargs:
         runfunction.imputation(kwargs, config)
