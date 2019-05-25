@@ -86,7 +86,7 @@ def checkconfig(config, kwargs):
 
     if kwargs.refbuild not in config[phase]["genetic_map_file"]:
         k = ",".join(config[phase]["genetic_map_file"].keys())
-        Log.error("is not been setted for %s in config file. The key of genetic_map_file "
+        Log.error("%s is not been setted for %s in config file. The key of genetic_map_file "
                   "can only be:\n%s\n%s\n" % (kwargs.refbuild, phase, k, conf_msg))
         sys.exit(1)
 
