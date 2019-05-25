@@ -2,6 +2,8 @@
 Author: Shujia Huang
 Date: 2019-05-21
 """
+import sys
+
 from pi.utils import Open
 
 
@@ -15,6 +17,11 @@ def get_chromlist(input_file):
 
             # first column must be the chromosome id
             chr_id = line.strip().split()[0]
+            if chr_id[:3].upper() == "CHR":
+                sys.stderr.write("[ERROR] Target VCF File contains chromosome: %s\n VCF File "
+                                 "can only contain chromosomes 1-22 and X !!!" % chr_id)
+                sys.exit(1)
+
             chr_list.add(chr_id)
 
     return chr_list
