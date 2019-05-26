@@ -39,7 +39,7 @@ class Minimac(object):
 
         genome_region = region.split(":")
         chr_id = genome_region[0]
-        if chr_id not in self.ref_panel[chr_id]:
+        if chr_id not in self.ref_panel:
             Log.warn("[WARNING] The reference panel does not contain chromosome %s, "
                      "imputation process stopped for this chromosome.\n" % chr_id)
             return False
