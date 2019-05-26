@@ -81,11 +81,12 @@ def minimac_chromosome(config, input_file, output_prefix, chr_id, nCPU=1, option
 
     if is_prephase:
         # pre-phasing
+        Log.info("Performing pre-phasing process by imputation.")
         phased_file = eagle_chromosome(config, input_file, output_prefix + ".phased", chr_id,
                                        options=[("--numThreads", nCPU)],
                                        reference_version=reference_version)
     else:
-        # do not pre-phase, usually because input_file is already a phased result
+        Log.info("Do not perform pre-phase, usually because %s is already a phased result." % input_file)
         phased_file = input_file
 
     minimac_program = Minimac(config, reference_panel=reference_panel)
