@@ -145,7 +145,7 @@ def main():
         runfunction.imputation(kwargs, config)
 
     elapsed_time = datetime.now() - start_time
-    Log.info("%s done, %d seconds elapsed.\n" % (sys.argv[1], elapsed_time.seconds))
+    Log.info("%s successfully done, %d seconds elapsed.\n" % (sys.argv[1], elapsed_time.seconds))
 
 
 if __name__ == "__main__":
