@@ -30,7 +30,7 @@ def check_vcf_format(in_vcf_file, chr_error_given=True):
     Log.info("Validating the format of %s" % in_vcf_file)
 
     if not in_vcf_file.endswith(".vcf") and not in_vcf_file.endswith(".vcf.gz"):
-        Log.error("Your input file is not .vcf or .vcf.gz")
+        Log.error("The format of %s is not a *.vcf.gz or *.vcf" % in_vcf_file)
         sys.exit(1)
 
     ACGT = set(['A', 'C', 'G', 'T'])
