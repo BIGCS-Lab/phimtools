@@ -59,7 +59,8 @@ def imputation(kwargs, config, is_prephase=True):
 
     # Todo: Merge different kinds of output files
     final_out_impute_file = "%s.final.vcf.gz" % kwargs.out_prefix
-    merge_files([f[0] for f in out_impute_files], final_out_impute_file,
-                is_del_raw_file=True)
+    if out_impute_files:
+        merge_files([f[0] for f in out_impute_files], final_out_impute_file,
+                    is_del_raw_file=True)
 
     return final_out_impute_file
