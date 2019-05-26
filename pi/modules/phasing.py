@@ -42,8 +42,12 @@ def eagle(config, input_file, output_prefix, options=None, reference_version=Non
     for chr_id in chromosomes:
 
         sub_outprefix = "%s.%s" % (output_prefix, chr_id)
-        sub_out_phased_file = eagle_chromosome(config, input_file, sub_outprefix, chr_id, options=options,
-                                               reference_version=reference_version)
+        sub_out_phased_file = eagle_chromosome(config,
+                                               input_file,
+                                               sub_outprefix,
+                                               chr_id,
+                                               reference_version=reference_version,
+                                               options=options)
         if sub_out_phased_file:
             out_phased_files.append(sub_out_phased_file)
 
@@ -73,7 +77,7 @@ def eagle(config, input_file, output_prefix, options=None, reference_version=Non
         return out_phased_files
 
 
-def eagle_chromosome(config, input_file, output_prefix, chr_id, options=None, reference_version=None):
+def eagle_chromosome(config, input_file, output_prefix, chr_id, reference_version=None, options=None):
     """A phasing function by eagle for a single one chromosome.
 
     Parameters:
