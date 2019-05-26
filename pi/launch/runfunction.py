@@ -15,8 +15,8 @@ from pi.log import Log
 def imputation(kwargs, config, is_prephase=True):
     """Run imputation for VCF files
     """
-    if kwargs.impute_mehtod not in ["minimac"]:
-        Log.error("%s is not one of imputation method in pi pipeline." % kwargs.impute_mehtod)
+    if kwargs.impute_method not in ["minimac"]:
+        Log.error("%s is not one of imputation method in pi pipeline." % kwargs.impute_method)
         sys.exit(1)
 
     if not kwargs.in_vcf.endswith(".vcf.gz") and not kwargs.in_vcf.endswith(".vcf"):
