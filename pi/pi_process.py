@@ -10,9 +10,10 @@ import yaml
 
 from datetime import datetime
 
+from pi.log import Log
+from pi.tools.check import check_vcf_format
 from pi.utils import file_exists
 from pi.launch import runfunction
-from pi.log import Log
 
 VERSION = "0.1.0"
 LONG_DESC = """
@@ -140,6 +141,7 @@ def main():
     checkconfig(config, kwargs)
 
     if "impute" in sys.argv[1:] and kwargs:
+        check_vcf_format(kwargs.in_vcf)
         runfunction.imputation(kwargs, config)
 
     elapsed_time = datetime.now() - start_time
