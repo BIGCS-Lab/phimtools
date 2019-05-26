@@ -26,14 +26,17 @@ def check_gt_format(gt):
     return True
 
 
-def check_vcf_format(in_vcf_file, chr_error_given=False):
+def check_vcf_format(in_vcf_file, chr_error_given=True):
     Log.info("Validating the format of %s" % in_vcf_file)
+
+    if not in_vcf_file.endswith(".vcf") and not in_vcf_file.endswith(".vcf.gz"):
+        Log.error("Your input file is not .vcf or .vcf.gz")
+        sys.exit(1)
 
     ACGT = set(['A', 'C', 'G', 'T'])
     ACGTM = set(['A', 'C', 'G', 'T', '.'])
 
     num = 0
-    vcf_sample_num = 0
     vcf_site_num = 0
     field_num = 0
 
@@ -42,7 +45,6 @@ def check_vcf_format(in_vcf_file, chr_error_given=False):
     with Open(in_vcf_file, 'r') as I:
 
         for line in I:
-
             if num % 10000 == 0 and num != 0:
                 Log.info("[ %d ] lines processed" % num)
 
