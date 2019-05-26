@@ -20,22 +20,7 @@ def test_impute_multi_process(config):
                    "data/eagle/EUR_test.vcf.gz",
                    "%s/test.imputed" % out_dir,
                    options=[("--cpus", 4)],
-                   reference_panel="1000G_P3_GRCh37",
-                   reference_version="GRCh37",
-                   merge_multi_output=True,
-                   is_prephase=True)
-
-
-def test_impute(config):
-    minimac_impute(config,
-                   "data/minimac/targetStudy.vcf",
-                   "%s/test.imputed" % out_dir,
-                   reference_panel="test_panel_GRCh37",
-                   reference_version="GRCh37",
-                   merge_multi_output=True,
-                   is_prephase=False)
-
-    return
+                   reference_panel="1000G_P3_GRCh37")
 
 
 if __name__ == "__main__":
