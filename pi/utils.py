@@ -214,7 +214,7 @@ def merge_files(temp_file_names, final_file_name, is_del_raw_file=False):
 
             # End of this file
             if line[0] == "#":
-                if index == 0:
+                if index == 0 and (not line.startswith("##contig=<ID=")):
                     output_file.write(line)
             else:
                 the_file_for_queueing = FileForQueueing(the_file, line, is_del_raw_file=is_del_raw_file)
