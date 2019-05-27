@@ -37,6 +37,7 @@ def parse_commandline_args(args):
     parser = argparse.ArgumentParser(description=desc)
     subparser = parser.add_subparsers(help="PI supplemental commands")
 
+    # For imputation
     impute_parser = subparser.add_parser("impute", help="Run imputation for NGS data.")
     impute_parser.add_argument("-C", "--conf", dest="config", required=True,
                                help="YAML configuration file specifying details information "
@@ -44,9 +45,8 @@ def parse_commandline_args(args):
 
     impute_parser.add_argument("-M", "--methods", dest="impute_method", default="minimac",
                                help="Tool for imputation. [minimac]")
-    # impute_parser.add_argument("-P", "--prephase-method", dest="phase_method", default="eagle",
-    #                            help="Tool for pre-phase before imputation. "
-    #                                 "If not set do not process pre-phase. [eagle]")
+    impute_parser.add_argument("-P", "--prephase-method", dest="phase_method", default="eagle",
+                               help="Tool for pre-phase before imputation. [eagle]")
 
     impute_parser.add_argument("-I", "--input", dest="in_vcf", required=True,
                                help="Input one VCF file to analyze. Required")
@@ -58,9 +58,11 @@ def parse_commandline_args(args):
     impute_parser.add_argument("--reference-build", dest="refbuild", required=True,
                                help="The build version of reference, e.g: GRCh37")
 
+    impute_parser.add_argument("--prephase", dest="is_prephase", type=bool, default=True,
+                               help="Perform pre-phased before the imputation process or not. [True]")
     impute_parser.add_argument("--regions", metavar="chr:start-end", type=str, dest="regions", default="",
-                               help="Skip positions which not in these regions. This parameter could be a list of "
-                                    "comma deleimited genome regions(e.g.: chr:start-end,chr:start-end)")
+                               help="Skip positions which not in these regions. This parameter could be a list "
+                                    "of comma deleimited genome regions(e.g.: chr:start-end,chr:start-end)")
 
     impute_parser.add_argument("--nCPU", dest="nCPU", type=int, default=1, help="Number of threads. [1]")
 

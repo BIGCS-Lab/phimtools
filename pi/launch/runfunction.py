@@ -12,11 +12,15 @@ from pi.modules import get_chromlist
 from pi.log import Log
 
 
-def imputation(kwargs, config, is_prephase=True):
+def imputation(kwargs, config):
     """Run imputation for VCF files
     """
     if kwargs.impute_method not in ["minimac"]:
         Log.error("%s is not one of imputation method in pi pipeline." % kwargs.impute_method)
+        sys.exit(1)
+
+    if kwargs.phase_method not in ["eagle"]:
+        Log.error("%s is not one of phasing method in pi pipeline." % kwargs.eagle_method)
         sys.exit(1)
 
     if not kwargs.in_vcf.endswith(".vcf.gz") and not kwargs.in_vcf.endswith(".vcf"):
@@ -34,14 +38,14 @@ def imputation(kwargs, config, is_prephase=True):
 
         # ignore the chromosome which not in the reference panel, which may happen in chromosome X
         chr_id = reg.split(":")[0]
-        if chr_id not in config["minimac"]["reference_panel"][kwargs.refpanel]:
+        if chr_id not in config[kwargs.impute_method]["reference_panel"][kwargs.refpanel]:
             Log.warn("[WARNING] chromosome %s is not in the panel: %s, which will not been "
                      "imputed in your final result.\n" % (chr_id, kwargs.refpanel))
             continue
 
         sub_outprefix = "%s.%s" % (kwargs.out_prefix, reg.replace(":", "-"))
         phased_file = kwargs.in_vcf
-        if is_prephase:
+        if kwargs.is_prephase and kwargs.phase_method == "eagle":
             # pre-phasing
             Log.info("Performing pre-phasing process by imputation.")
             phased_file = eagle_region(config,
