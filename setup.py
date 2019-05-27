@@ -1,8 +1,10 @@
-"""Setup file and install script for phasing and imputation for NGS data.
+"""Setup file and install script for phasing and imputation pipeline.
 
-Version 0.1.0 (May 22, 2019)
+Version 1.0.0 (May 27, 2019)
 Copyright (c) 2019 Shujia Huang
 """
+import os
+
 try:
     from setuptools import setup, find_packages
     _has_setuptools = True
@@ -16,17 +18,19 @@ MAINTAINER = "Shujia Huang"
 MAINTAINER_EMAIL = "huangshujia9@gmail.com"
 URL = "https://github.com/ShujiaHuang/pi"
 LICENSE = "BSD (3-clause)"
-DOWNLOAD_URL = ""
-VERSION = "0.1.0"
+DOWNLOAD_URL = "https://github.com/ShujiaHuang/pi"
+VERSION = "1.0.0"
 
 if __name__ == "__main__":
+
+    readme = os.path.split(os.path.realpath(__file__))[0] + "/README.rst"
     setup(name=DISTNAME,
           author=MAINTAINER,
           author_email=MAINTAINER_EMAIL,
           maintainer=MAINTAINER,
           maintainer_email=MAINTAINER_EMAIL,
           description=DESCRIPTION,
-          long_description=(open("README.md").read()),
+          long_description=(open(readme).read()),
           license=LICENSE,
           url=URL,
           download_url=DOWNLOAD_URL,
@@ -50,7 +54,7 @@ if __name__ == "__main__":
              "License :: OSI Approved :: BSD License",
              "Topic :: Scientific/Engineering :: Bio-Informatics",
              "Topic :: Scientific/Engineering :: Tools",
-             "Topic :: Multimedia :: WGS",
+             "Topic :: Multimedia :: Variants",
              "Operating System :: POSIX",
              "Operating System :: Linux/Unix"]
           )

@@ -15,7 +15,7 @@ from pi.tools.check import check_vcf_format
 from pi.utils import file_exists
 from pi.launch import runfunction
 
-VERSION = "0.1.0"
+VERSION = "1.0.0"
 LONG_DESC = """
 ------------------------------------------------------------------
        pi - A pipeline for phasing and imputation analysis.     
