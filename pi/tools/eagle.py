@@ -19,15 +19,14 @@ class Eagle(object):
         """Help information for Eagle"""
         return do.run("%s --help" % self.eagle)
 
-    def run(self, options):
+    def run(self, **kwargs):
         """Run a Eagle command with the provide options.
 
         Parameters:
-            ``options``: A tuple like
-                Options for Eagle.
+            ``kwargs``: A dict like
+                key world parameter for Eagle
         """
         cmd = " ".join([self.eagle] + ["--geneticMapFile=%s" % self.genetic_map_file] +
-                       ["%s=%s" % (p, v) for p, v in options])
+                       ["--%s=%s" % (k, v) for k, v in kwargs.items()])
         do.run(cmd)
-
         return

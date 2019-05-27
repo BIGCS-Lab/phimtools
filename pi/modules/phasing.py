@@ -42,12 +42,12 @@ def eagle(config, input_file, output_prefix, options=None, reference_version=Non
     for chr_id in chromosomes:
 
         sub_outprefix = "%s.%s" % (output_prefix, chr_id)
-        sub_out_phased_file = eagle_chromosome(config,
-                                               input_file,
-                                               sub_outprefix,
-                                               chr_id,
-                                               reference_version=reference_version,
-                                               options=options)
+        sub_out_phased_file = eagle_region(config,
+                                           input_file,
+                                           sub_outprefix,
+                                           chr_id,
+                                           reference_version=reference_version,
+                                           options=options)
         if sub_out_phased_file:
             out_phased_files.append(sub_out_phased_file)
 
@@ -77,43 +77,59 @@ def eagle(config, input_file, output_prefix, options=None, reference_version=Non
         return out_phased_files
 
 
-def eagle_chromosome(config, input_file, output_prefix, chr_id, reference_version=None, options=None):
-    """A phasing function by eagle for a single one chromosome.
+def eagle_region(config, input_file, output_prefix, region, reference_version=None, options=None):
+    """A phasing function by eagle for a specific genome region.
 
     Parameters:
-        ``chr_id``: Chromosome for phasing
+        ``region``: String
+            A genome region for eagle, format like chr_id:start-end
         ``options``: A tuple list of eagle parameters
         ``reference_version``: A string.
                 set reference version for phasing process
     """
-    Log.info("Performing phasing process for chromosome %s by using Eagle." % chr_id)
+    Log.info("Performing phasing process for %s by using Eagle." % region)
     if options is None:
         options = []
+
+    # set parameter for eagle as a key-world pair.
+    eagle_param_kw = {k: v for k, v in options}
 
     # find the format of input file, default set to be "PLINK(bed/bim/fam)"
     input_format = "VCF" if input_file.endswith(".vcf.gz") or input_file.endswith(".vcf") else "PLINK"
 
     # set input file
     if input_format == "VCF":
-        input_file_param = ("--vcf", input_file)
+        eagle_param_kw["vcf"] = input_file
 
     else:
         # do not compress you PLINK data by gzip or bgzip.
-        input_file_param = ("--bfile", input_file)
+        eagle_param_kw["bfile"] = input_file
 
-    sub_out_phased_file = "%s.vcf.gz" % output_prefix
-    if input_format == "PLINK":
-        # *.sample files are the same
-        sub_out_phased_file = ["%s.haps.gz" % output_prefix, "%s.sample" % output_prefix]
+    # set the region for eagle
+    genome_region = region.split(":")
+    eagle_param_kw["chrom"] = genome_region[0]
 
-    cmd_options = options + [input_file_param, ("--chrom", chr_id), ("--outPrefix", output_prefix)]
+    if len(genome_region) > 1:
+        start, end = genome_region.split("-")
+        eagle_param_kw["bpStart"] = start
+        eagle_param_kw["bpEnd"] = end
+
+    # set output prefix for eagle
+    eagle_param_kw["outPrefix"] = output_prefix
     eagle_program = Eagle(config, reference_version=reference_version)
     try:
-        # Set output and run eagle phasing process.
-        eagle_program.run(cmd_options)
+        # run eagle phasing process.
+        eagle_program.run(**eagle_param_kw)
+
+        # get output files by ``output_prefix``
+        sub_out_phased_file = "%s.vcf.gz" % output_prefix
+        if input_format == "PLINK":
+            # *.sample files are the same
+            sub_out_phased_file = ["%s.haps.gz" % output_prefix, "%s.sample" % output_prefix]
+
         return sub_out_phased_file
 
     except:
-        Log.warn("job for phasing chrom %s is fail, can't find chromosome "
-                 "%s in %s.\n" % (chr_id, chr_id, input_file))
+        Log.warn("job for phasing %s is fail, may because can't find chromosome "
+                 "%s in %s.\n" % (region, region, input_file))
         return

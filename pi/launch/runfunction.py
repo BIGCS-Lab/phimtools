@@ -5,7 +5,7 @@ Date: 2019-05-22
 """
 import sys
 
-from pi.modules.phasing import eagle_chromosome
+from pi.modules.phasing import eagle_region
 from pi.modules.imputation import minimac
 from pi.utils import merge_files
 from pi.modules import get_chromlist
@@ -40,12 +40,14 @@ def imputation(kwargs, config, is_prephase=True):
         if is_prephase:
             # pre-phasing
             Log.info("Performing pre-phasing process by imputation.")
-            phased_file = eagle_chromosome(config,
-                                           kwargs.in_vcf,
-                                           kwargs.out_prefix + ".phased",
-                                           chr_id,
-                                           reference_version=kwargs.refbuild,
-                                           options=[("--numThreads", kwargs.nCPU)])
+            phased_file = eagle_region(config,
+                                       kwargs.in_vcf,
+                                       kwargs.out_prefix + ".phased",
+                                       chr_id,
+                                       reference_version=kwargs.refbuild,
+                                       options=[("numThreads", kwargs.nCPU)])
+            if not phased_file:
+                continue
 
         if kwargs.impute_method == "minimac":
             sub_out_impute_files = minimac(config,
@@ -53,14 +55,18 @@ def imputation(kwargs, config, is_prephase=True):
                                            sub_outprefix,
                                            chr_id,
                                            reference_panel=kwargs.refpanel,
-                                           options=[("--cpus", kwargs.nCPU)])
+                                           options=[("cpus", kwargs.nCPU)])
             if sub_out_impute_files:
                 out_impute_files.append(sub_out_impute_files)
 
     # Todo: Merge different kinds of output files
     final_out_impute_file = "%s.final.vcf.gz" % kwargs.out_prefix
     if out_impute_files:
+        # Just merge the imputed VCF files
         merge_files([f[0] for f in out_impute_files], final_out_impute_file,
                     is_del_raw_file=True)
 
-    return final_out_impute_file
+        return final_out_impute_file
+    else:
+        Log.warn("Nothing output")
+        return
