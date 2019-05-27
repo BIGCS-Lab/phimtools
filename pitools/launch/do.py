@@ -5,7 +5,7 @@ import os
 import subprocess
 from datetime import datetime
 
-from pi.log import logger, logger_cmd, logger_stdout
+from pitools.log import logger, logger_cmd, logger_stdout
 
 
 def run(cmd, descr=None, checks=None, log_stdout=False, env=None):

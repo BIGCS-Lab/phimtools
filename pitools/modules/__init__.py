@@ -2,7 +2,7 @@
 Author: Shujia Huang
 Date: 2019-05-21
 """
-from pi.utils import Open
+from pitools.utils import Open
 
 
 def get_chromlist(input_file):

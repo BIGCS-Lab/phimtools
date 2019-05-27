@@ -1,12 +1,12 @@
-"""A function for checking the format of a VCF is suit for pi
+"""A function for checking the format of a VCF is suit for pitools
 
 Author: Shujia Huang
 Date: 2019-05-26
 """
 import sys
 
-from pi.log import Log
-from pi.utils import Open
+from pitools.log import Log
+from pitools.utils import Open
 
 
 def check_gt_format(gt):
@@ -70,7 +70,7 @@ def check_vcf_format(in_vcf_file, chr_error_given=True):
             if line[:3].upper() == "CHR" and chr_error_given:
                 Log.error("Detected that chromosome IDs have 'chr' prefix ... Can only allow "
                           "chromosome 1-22 and X without 'chr' in the front. Please consider using "
-                          "the following command to clean your VCF file and re-run pi: \n"
+                          "the following command to clean your VCF file and re-run pitools: \n"
                           "sed 's:^chr::' $your_old_vcf | bgzip -c > $your_vcf_file")
                 sys.exit(1)
 

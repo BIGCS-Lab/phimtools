@@ -5,9 +5,9 @@ Date: 2019-05-20
 """
 import os
 
-from pi.tools.eagle import Eagle
-from pi.utils import merge_files
-from pi.log import Log
+from pitools.tools.eagle import Eagle
+from pitools.utils import merge_files
+from pitools.log import Log
 from . import get_chromlist
 
 

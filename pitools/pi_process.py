@@ -10,22 +10,22 @@ import yaml
 
 from datetime import datetime
 
-from pi.log import Log
-from pi.tools.check import check_vcf_format
-from pi.utils import file_exists
-from pi.launch import runfunction
+from pitools.log import Log
+from pitools.tools.check import check_vcf_format
+from pitools.utils import file_exists
+from pitools.launch import runfunction
 
 VERSION = "1.0.0"
 LONG_DESC = """
 ------------------------------------------------------------------
-       pi - A pipeline for phasing and imputation analysis.     
+     pitools - A program for phasing and imputation analysis.     
 ------------------------------------------------------------------
                    (c) 2019 - Shujia Huang                      
        Distributed under the GNU GPLv3+ open source license.    
 
 Version {version}                                                     
 
-URL = https://github.com/ShujiaHuang/pi                           
+URL = https://github.com/ShujiaHuang/pitools                         
 -----------------------------------------------------------------
 """.format(version=VERSION)
 
@@ -33,9 +33,9 @@ URL = https://github.com/ShujiaHuang/pi
 def parse_commandline_args(args):
     """Parse input commandline arguments, handling multiple cases."""
 
-    desc = "pi - A pipeline for phasing and imputation analysis."
+    desc = "pitools - A pipeline for phasing and imputation analysis."
     parser = argparse.ArgumentParser(description=desc)
-    subparser = parser.add_subparsers(help="PI supplemental commands")
+    subparser = parser.add_subparsers(help="pitools supplemental commands")
 
     # For imputation
     impute_parser = subparser.add_parser("impute", help="Run imputation for NGS data.")
@@ -74,7 +74,7 @@ def parse_commandline_args(args):
 def check_config(config, kwargs):
     """Check the most important parameters is setted or not."""
 
-    conf_msg = "Please find an example: https://github.com/ShujiaHuang/pi/blob/master/tests/config.yaml"
+    conf_msg = "Please find an example: https://github.com/ShujiaHuang/pitools/blob/master/tests/config.yaml"
 
     phase = kwargs.phase_method
     if phase not in config:

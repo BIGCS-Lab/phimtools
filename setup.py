@@ -1,4 +1,4 @@
-"""Setup file and install script for phasing and imputation pipeline.
+"""Setup file and install script for this python package.
 
 Version 1.0.0 (May 27, 2019)
 Copyright (c) 2019 Shujia Huang
@@ -12,13 +12,13 @@ except ImportError:
     from distutils.core import setup, find_packages
 
 
-DESCRIPTION = "PI: A python package for phasing and imputation NGS data."
-DISTNAME = "pi"
+DESCRIPTION = "pitools: A python program for phasing and imputation NGS data."
+DISTNAME = "pitools"
 MAINTAINER = "Shujia Huang"
 MAINTAINER_EMAIL = "huangshujia9@gmail.com"
-URL = "https://github.com/ShujiaHuang/pi"
+URL = "https://github.com/ShujiaHuang/pitools"
 LICENSE = "BSD (3-clause)"
-DOWNLOAD_URL = "https://github.com/ShujiaHuang/pi"
+DOWNLOAD_URL = "https://github.com/ShujiaHuang/pitools"
 VERSION = "1.0.0"
 
 if __name__ == "__main__":
@@ -44,7 +44,7 @@ if __name__ == "__main__":
           # scripts=[],
           entry_points={
               "console_scripts": [
-                  "pi = pi.pi_process:main"
+                  "pitools = pitools.pi_process:main"
               ]
           },
           classifiers=[
@@ -53,8 +53,6 @@ if __name__ == "__main__":
              "Programming Language :: Python :: 3.7",
              "License :: OSI Approved :: BSD License",
              "Topic :: Scientific/Engineering :: Bio-Informatics",
-             "Topic :: Scientific/Engineering :: Tools",
-             "Topic :: Multimedia :: Variants",
              "Operating System :: POSIX",
-             "Operating System :: Linux/Unix"]
+             "Operating System :: POSIX :: Linux"]
           )

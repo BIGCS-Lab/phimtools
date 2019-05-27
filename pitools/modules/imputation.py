@@ -3,8 +3,8 @@
 Author: Shujia Huang
 Date: 2019-05-22
 """
-from pi.tools.minimac3 import Minimac
-from pi.log import Log
+from pitools.tools.minimac3 import Minimac
+from pitools.log import Log
 
 
 def minimac(config, input_file, output_prefix, region, reference_panel=None, options=None):

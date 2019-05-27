@@ -1,9 +1,9 @@
 """Test module for Minimac3"""
 import yaml
 
-from pi.utils import safe_makedir
-from pi.modules.imputation import minimac as minimac_impute
-from pi.tools.minimac3 import Minimac
+from pitools.utils import safe_makedir
+from pitools.modules.imputation import minimac as minimac_impute
+from pitools.tools.minimac3 import Minimac
 
 
 out_dir = safe_makedir("./test_impute")

@@ -1,8 +1,8 @@
 """Test module for Eagle"""
 import yaml
-from pi.modules.phasing import eagle as eagle_phasing
-from pi.tools.eagle import Eagle
-from pi.utils import safe_makedir
+from pitools.modules.phasing import eagle as eagle_phasing
+from pitools.tools.eagle import Eagle
+from pitools.utils import safe_makedir
 
 
 out_dir = safe_makedir("./test_eagle")

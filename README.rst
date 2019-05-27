@@ -1,17 +1,17 @@
-PI: A phasing and imputation pipeline for NGS data.
+pitools: A phasing and imputation tools for NGS data.
 ===================================================
 
 Introduction
 ------------
 
-PI is a phasing and imputation pipeline for NGS data, which is the main
-core of imputation server: https://imputation.cngb.org/. You can use pi
+pitools is a phasing and imputation tools for NGS data, which is the main
+core of imputation server: https://imputation.cngb.org/. You can use pitools
 as your own imputation pipeline in your local Linux cluster.
 
 Quick start
 -----------
 
-PI use `eagle <https://data.broadinstitute.org/alkesgroup/Eagle/>`__ for
+pitools use `eagle <https://data.broadinstitute.org/alkesgroup/Eagle/>`__ for
 phasing and `Minimac3 <https://genome.sph.umich.edu/wiki/Minimac3>`__
 for imputation.
 
@@ -22,27 +22,27 @@ Install the released version by pip:
 
 .. code:: bash
 
-    pip install pi
+    pip install pitools
 
 Or you may instead want to install the development version from github,
 by running:
 
 .. code:: bash
 
-    pip install git+git://github.com/ShujiaHuang/pi.git#egg=pi
+    pip install git+git://github.com/ShujiaHuang/pitools.git#egg=pitools
 
-This command will install PI in your system and you can use ``pi`` in
+This command will install pitools in your system and you can use ``pitools`` in
 your commandline.
 
 Usage
 ~~~~~
 
 You can find all the parameter for imputation process by running
-``pi impute --help``:
+``pitools impute --help``:
 
 ::
 
-    usage: pi impute [-h] -C CONFIG [-M IMPUTE_METHOD] [-P PHASE_METHOD] -I IN_VCF
+    usage: pitools impute [-h] -C CONFIG [-M IMPUTE_METHOD] [-P PHASE_METHOD] -I IN_VCF
                      -O OUT_PREFIX --refpanel-version REFPANEL --reference-build
                      REFBUILD [--unprephase] [--regions chr:start-end]
                      [--nCPU NCPU]
@@ -76,12 +76,12 @@ You can find all the parameter for imputation process by running
 Configuration file
 ~~~~~~~~~~~~~~~~~~
 
-``pi`` needs a configuration file for setting the path of phasing
+``pitools`` needs a configuration file for setting the path of phasing
 program, imputation program, reference version and reference panel.
 Here's one of the examples for how to create a config- uration file:
 `config.yaml <./tests/config.yaml>`__.
 
-Now you can use ``pi`` as your powerful imputation pipeline, once you
+Now you can use ``pitools`` as your powerful imputation pipeline, once you
 have finished the setting.
 
 Examples
@@ -91,7 +91,7 @@ This command would be enough for most of your jobs.
 
 .. code:: bash
 
-    pi impute -C config.yaml \
+    pitools impute -C config.yaml \
         -I your.vcf.gz \
         -O test_outprefix \
         --refpanel-version 1000G_P3_GRCh37 \
@@ -99,12 +99,12 @@ This command would be enough for most of your jobs.
         --nCPU 4
 
 What if you just want to preform the imputed process in some specific
-regions. Here is an example for running ``pi`` in genome region:
+regions. Here is an example for running ``pitools`` in genome region:
 ``21:38347375-38500731`` and ``22:17203103-17439826``.
 
 .. code:: bash
 
-    pi impute -C config.yaml \
+    pitools impute -C config.yaml \
         -I your.vcf.gz \
         -O test_outprefix \
         --refpanel-version 1000G_P3_GRCh37 \
@@ -119,7 +119,7 @@ argument to skip that process.
 
 .. code:: bash
 
-    pi impute -C config.yaml \
+    pitools impute -C config.yaml \
         -I your.vcf.gz \
         -O test_outprefix \
         --refpanel-version 1000G_P3_GRCh37 \

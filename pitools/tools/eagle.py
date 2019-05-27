@@ -3,7 +3,7 @@
 Author: Shujia Huang
 Date: 2019-05-20
 """
-from pi.launch import do
+from pitools.launch import do
 
 
 class Eagle(object):
