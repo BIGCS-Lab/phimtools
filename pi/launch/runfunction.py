@@ -20,7 +20,7 @@ def imputation(kwargs, config):
         sys.exit(1)
 
     if kwargs.phase_method not in ["eagle"]:
-        Log.error("%s is not one of phasing method in pi pipeline." % kwargs.eagle_method)
+        Log.error("%s is not one of phasing method in pi pipeline." % kwargs.phase_method)
         sys.exit(1)
 
     if not kwargs.in_vcf.endswith(".vcf.gz") and not kwargs.in_vcf.endswith(".vcf"):
