@@ -23,19 +23,23 @@ def imputation(kwargs, config, is_prephase=True):
         Log.error("The format of input file is not a *.vcf.gz or *.vcf\n")
         sys.exit(1)
 
-    chromosomes = get_chromlist(kwargs.in_vcf)
-    out_impute_files = []
+    if not kwargs.regions:
+        regions = get_chromlist(kwargs.in_vcf)
+    else:
+        regions = kwargs.regions.split(",")
 
+    out_impute_files = []
     # perform for each chromosome or genome region
-    for chr_id in chromosomes:
+    for reg in regions:
 
         # ignore the chromosome which not in the reference panel, which may happen in chromosome X
+        chr_id = reg.split(":")[0]
         if chr_id not in config["minimac"]["reference_panel"][kwargs.refpanel]:
             Log.warn("[WARNING] chromosome %s is not in the panel: %s, which will not been "
                      "imputed in your final result.\n" % (chr_id, kwargs.refpanel))
             continue
 
-        sub_outprefix = "%s.%s" % (kwargs.out_prefix, chr_id)
+        sub_outprefix = "%s.%s" % (kwargs.out_prefix, reg.replace(":", "-"))
         phased_file = kwargs.in_vcf
         if is_prephase:
             # pre-phasing
@@ -43,7 +47,7 @@ def imputation(kwargs, config, is_prephase=True):
             phased_file = eagle_region(config,
                                        kwargs.in_vcf,
                                        kwargs.out_prefix + ".phased",
-                                       chr_id,
+                                       reg,
                                        reference_version=kwargs.refbuild,
                                        options=[("numThreads", kwargs.nCPU)])
             if not phased_file:
@@ -53,7 +57,7 @@ def imputation(kwargs, config, is_prephase=True):
             sub_out_impute_files = minimac(config,
                                            phased_file,
                                            sub_outprefix,
-                                           chr_id,
+                                           reg,
                                            reference_panel=kwargs.refpanel,
                                            options=[("cpus", kwargs.nCPU)])
             if sub_out_impute_files:

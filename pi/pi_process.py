@@ -57,6 +57,11 @@ def parse_commandline_args(args):
                                help="The version of haplotype data for reference panel. Required")
     impute_parser.add_argument("--reference-build", dest="refbuild", required=True,
                                help="The build version of reference, e.g: GRCh37")
+
+    impute_parser.add_argument("--regions", metavar="chr:start-end", type=str, dest="regions", default="",
+                               help="Skip positions which not in these regions. This parameter could be a list of "
+                                    "comma deleimited genome regions(e.g.: chr:start-end,chr:start-end)")
+
     impute_parser.add_argument("--nCPU", dest="nCPU", type=int, default=1, help="Number of threads. [1]")
 
     return parser.parse_args(args)
