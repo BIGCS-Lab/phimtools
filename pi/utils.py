@@ -207,7 +207,7 @@ def merge_files(temp_file_names, final_file_name, is_del_raw_file=False):
     the_heap = []
 
     # Initialise queue
-    for index, file_name in enumerate(temp_file_names):
+    for index, file_name in enumerate(temp_file_names[::-1]):
         the_file = Open(file_name, 'r')
 
         for line in the_file:
