@@ -23,14 +23,14 @@ VERSION = "1.0.0"
 
 if __name__ == "__main__":
 
-    readme = os.path.split(os.path.realpath(__file__))[0] + "/README.rst"
+    readme_desc = os.path.split(os.path.realpath(__file__))[0] + "/README.rst"
     setup(name=DISTNAME,
           author=MAINTAINER,
           author_email=MAINTAINER_EMAIL,
           maintainer=MAINTAINER,
           maintainer_email=MAINTAINER_EMAIL,
           description=DESCRIPTION,
-          long_description=(open(readme).read()),
+          long_description=(open(readme_desc).read()),
           license=LICENSE,
           url=URL,
           download_url=DOWNLOAD_URL,
