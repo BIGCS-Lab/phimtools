@@ -66,15 +66,17 @@ def parse_commandline_args(args):
 
     impute_parser.add_argument("--nCPU", dest="nCPU", type=int, default=1, help="Number of threads. [1]")
 
+    # For phasing
+
     return parser.parse_args(args)
 
 
-def checkconfig(config, kwargs):
+def check_config(config, kwargs):
     """Check the most important parameters is setted or not."""
 
     conf_msg = "Please find an example: https://github.com/ShujiaHuang/pi/blob/master/tests/config.yaml"
 
-    phase = "eagle"
+    phase = kwargs.phase_method
     if phase not in config:
         Log.error("Missing '%s' in config file.\n%s\n" % (phase, conf_msg))
         sys.exit(1)
@@ -145,7 +147,7 @@ def main():
     with open(kwargs.config) as C:
         config = yaml.load(C)
 
-    checkconfig(config, kwargs)
+    check_config(config, kwargs)
 
     if "impute" in sys.argv[1:] and kwargs:
         check_vcf_format(kwargs.in_vcf)

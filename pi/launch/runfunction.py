@@ -55,6 +55,10 @@ def imputation(kwargs, config):
                                            reg,
                                            reference_version=kwargs.refbuild,
                                            options=[("numThreads", kwargs.nCPU)])
+            else:
+                Log.warn("Nothing output")
+                return
+
             if not phased_file:
                 continue
 
