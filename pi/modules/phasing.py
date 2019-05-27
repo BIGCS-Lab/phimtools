@@ -111,7 +111,7 @@ def eagle_region(config, input_file, output_prefix, region, reference_version=No
     eagle_param_kw["chrom"] = genome_region[0]
 
     if len(genome_region) > 1:
-        start, end = genome_region.split("-")
+        start, end = genome_region[1].split("-")
         eagle_param_kw["bpStart"] = start
         eagle_param_kw["bpEnd"] = end
 

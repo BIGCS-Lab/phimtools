@@ -39,7 +39,7 @@ def minimac(config, input_file, output_prefix, region, reference_panel=None, opt
     # set the region for Minimac
     minimac_param_kw["chr"] = chr_id
     if len(genome_region) > 1:
-        start, end = genome_region.split("-")
+        start, end = genome_region[1].split("-")
         minimac_param_kw["start"] = start
         minimac_param_kw["end"] = end
 
