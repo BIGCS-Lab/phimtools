@@ -45,15 +45,16 @@ def imputation(kwargs, config):
 
         sub_outprefix = "%s.%s" % (kwargs.out_prefix, reg.replace(":", "-"))
         phased_file = kwargs.in_vcf
-        if kwargs.is_prephase and kwargs.phase_method == "eagle":
+        if not kwargs.is_unprephase:
             # pre-phasing
-            Log.info("Performing pre-phasing process by imputation.")
-            phased_file = eagle_region(config,
-                                       kwargs.in_vcf,
-                                       kwargs.out_prefix + ".phased",
-                                       reg,
-                                       reference_version=kwargs.refbuild,
-                                       options=[("numThreads", kwargs.nCPU)])
+            Log.info("Performing pre-phasing process before imputation.")
+            if kwargs.phase_method == "eagle":
+                phased_file = eagle_region(config,
+                                           kwargs.in_vcf,
+                                           kwargs.out_prefix + ".phased",
+                                           reg,
+                                           reference_version=kwargs.refbuild,
+                                           options=[("numThreads", kwargs.nCPU)])
             if not phased_file:
                 continue
 

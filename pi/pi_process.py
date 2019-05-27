@@ -58,8 +58,8 @@ def parse_commandline_args(args):
     impute_parser.add_argument("--reference-build", dest="refbuild", required=True,
                                help="The build version of reference, e.g: GRCh37")
 
-    impute_parser.add_argument("--prephase", dest="is_prephase", type=bool, default=True,
-                               help="Perform pre-phased before the imputation process or not. [True]")
+    impute_parser.add_argument("--unprephase", dest="is_unprephase", action='store_true',
+                               help="Do not perform pre-phased before the imputation process.")
     impute_parser.add_argument("--regions", metavar="chr:start-end", type=str, dest="regions", default="",
                                help="Skip positions which not in these regions. This parameter could be a list "
                                     "of comma deleimited genome regions(e.g.: chr:start-end,chr:start-end)")
