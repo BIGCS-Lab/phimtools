@@ -18,6 +18,8 @@ def minimac(config, input_file, output_prefix, region, reference_panel=None, opt
                 in configuration file.
         ``options``: A tuple list of eagle parameters
     """
+    region = str(region)
+
     Log.info("Performing imputation process for %s by using Minimac3." % region)
     if options is None:
         options = []

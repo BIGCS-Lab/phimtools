@@ -87,6 +87,7 @@ def eagle_region(config, input_file, output_prefix, region, reference_version=No
         ``reference_version``: A string.
                 set reference version for phasing process
     """
+    region = str(region)
     Log.info("Performing phasing process for %s by using Eagle." % region)
     if options is None:
         options = []
