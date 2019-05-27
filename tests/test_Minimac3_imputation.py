@@ -19,7 +19,8 @@ def test_impute_multi_process(config):
     minimac_impute(config,
                    "data/eagle/EUR_test.vcf.gz",
                    "%s/test.imputed" % out_dir,
-                   options=[("--cpus", 4)],
+                   "22",
+                   options=[("cpus", 4)],
                    reference_panel="1000G_P3_GRCh37")
 
 

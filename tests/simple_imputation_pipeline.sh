@@ -23,7 +23,7 @@ if [ ${in_file_ext} != "vcf.gz" ]; then
 fi
 
 ## set output prefix by the name of input file
-out_prefix=`basename $input | awk -v chrid=${chrom} 'BEGIN{FS=".vcf.gz"}{print $1"."chrid".eagle_2_4_1.phased"}'`
+out_prefix=`basename $input | awk 'BEGIN{FS=".vcf.gz"}{print $1}'`
 
 ## The whole pipeline
 ${pi} impute -C $config -I $input -O ${out_prefix} --refpanel-version ${refpanel} --reference-build ${refbuild} --nCPU 4 && echo "** Imputation by $pi done **"

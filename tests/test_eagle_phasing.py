@@ -17,7 +17,7 @@ def test_phasing_multi_process(config):
     eagle_phasing(config,
                   "data/eagle/EUR_test.vcf.gz",
                   "%s/EUR_test.phased" % out_dir,
-                  options=[("--numThreads", 4)],
+                  options=[("numThreads", 4)],
                   reference_version="GRCh37",
                   merge_multi_output=True)
     return
@@ -37,7 +37,7 @@ def test_phasing_PLINK_format(config):
                   "data/eagle/EUR_test",
                   "%s/EUR_test.phased" % out_dir,
                   reference_version="GRCh37",
-                  merge_multi_output=True)
+                  merge_multi_output=False)
     return
 
 
@@ -48,5 +48,5 @@ if __name__ == "__main__":
 
     # test_out_eagle_help_info(config)
     # test_phasing_vcf_format(config)
-    # test_phasing_PLINK_format(config)
-    test_phasing_multi_process(config)
+    test_phasing_PLINK_format(config)
+    # test_phasing_multi_process(config)
