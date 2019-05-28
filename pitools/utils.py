@@ -217,7 +217,8 @@ def merge_files(temp_file_names, final_file_name, is_del_raw_file=False):
                 if index == 0 and (not line.startswith("##contig=<ID=")):
                     output_file.write(line)
             else:
-                the_file_for_queueing = FileForQueueing(the_file, line, is_del_raw_file=is_del_raw_file)
+                the_file_for_queueing = FileForQueueing(the_file, line,
+                                                        is_del_raw_file=is_del_raw_file)
                 heapq.heappush(the_heap, the_file_for_queueing)
                 break
 
@@ -248,3 +249,4 @@ def merge_files(temp_file_names, final_file_name, is_del_raw_file=False):
         output_file.close()
 
     return
+
