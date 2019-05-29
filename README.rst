@@ -4,16 +4,15 @@ pitools: A phasing and imputation tools for NGS data.
 Introduction
 ------------
 
-pitools is a phasing and imputation tools for NGS data, which is the main
+``pitools`` is a phasing and imputation tools for NGS data, which is the main
 core of imputation server: https://imputation.cngb.org/. You can use pitools
 as your own imputation pipeline in your local Linux cluster.
 
 Quick start
 -----------
 
-pitools use `eagle <https://data.broadinstitute.org/alkesgroup/Eagle/>`__ for
-phasing and `Minimac3 <https://genome.sph.umich.edu/wiki/Minimac3>`__
-for imputation.
+pitools use `eagle <https://data.broadinstitute.org/alkesgroup/Eagle/>`__ for phasing 
+and `Minimac3 <https://genome.sph.umich.edu/wiki/Minimac3>`__ for imputation.
 
 Installation
 ~~~~~~~~~~~~
