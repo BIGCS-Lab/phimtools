@@ -19,7 +19,7 @@ MAINTAINER_EMAIL = "huangshujia9@gmail.com"
 URL = "https://github.com/ShujiaHuang/pitools"
 LICENSE = "BSD (3-clause)"
 DOWNLOAD_URL = "https://github.com/ShujiaHuang/pitools"
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 
 if __name__ == "__main__":
 
