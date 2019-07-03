@@ -34,27 +34,27 @@ minimac:
         1000G_P3_GRCh38: ""
         CNRP_GRCh37: ""
         CNRP_GRCh38:
-            '1': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.1.phased.m3vcf.gz
-            '2': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.2.phased.m3vcf.gz
-            '3': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.3.phased.m3vcf.gz
-            '4': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.4.phased.m3vcf.gz
-            '5': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.5.phased.m3vcf.gz
-            '6': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.6.phased.m3vcf.gz
-            '7': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.7.phased.m3vcf.gz
-            '8': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.8.phased.m3vcf.gz
-            '9': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.9.phased.m3vcf.gz
-            '10': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.10.phased.m3vcf.gz
-            '11': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.11.phased.m3vcf.gz
-            '12': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.12.phased.m3vcf.gz
-            '13': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.13.phased.m3vcf.gz
-            '14': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.14.phased.m3vcf.gz
-            '15': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.15.phased.m3vcf.gz
-            '16': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.16.phased.m3vcf.gz
-            '17': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.17.phased.m3vcf.gz
-            '18': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.18.phased.m3vcf.gz
-            '19': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.19.phased.m3vcf.gz
-            '20': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.20.phased.m3vcf.gz
-            '21': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.21.phased.m3vcf.gz
-            '22': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/Staff.850.22.phased.m3vcf.gz
+            '1': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.1.phased.v1.nochr.m3vcf.gz
+            '2': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.2.phased.v1.nochr.m3vcf.gz
+            '3': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.3.phased.v1.nochr.m3vcf.gz
+            '4': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.4.phased.v1.nochr.m3vcf.gz
+            '5': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.5.phased.v1.nochr.m3vcf.gz
+            '6': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.6.phased.v1.nochr.m3vcf.gz
+            '7': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.7.phased.v1.nochr.m3vcf.gz
+            '8': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.8.phased.v1.nochr.m3vcf.gz
+            '9': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.9.phased.v1.nochr.m3vcf.gz
+            '10': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.10.phased.v1.nochr.m3vcf.gz
+            '11': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.11.phased.v1.nochr.m3vcf.gz
+            '12': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.12.phased.v1.nochr.m3vcf.gz
+            '13': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.13.phased.v1.nochr.m3vcf.gz
+            '14': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.14.phased.v1.nochr.m3vcf.gz
+            '15': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.15.phased.v1.nochr.m3vcf.gz
+            '16': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.16.phased.v1.nochr.m3vcf.gz
+            '17': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.17.phased.v1.nochr.m3vcf.gz
+            '18': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.18.phased.v1.nochr.m3vcf.gz
+            '19': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.19.phased.v1.nochr.m3vcf.gz
+            '20': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.20.phased.v1.nochr.m3vcf.gz
+            '21': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.21.phased.v1.nochr.m3vcf.gz
+            '22': /home/huangshujia/ngs_data_collection/10K_Chinese_Haplotypes_BGI/PhaseI_850_GRCh38/10KCN.22.phased.v1.nochr.m3vcf.gz
         test_panel_GRCh37:
             '6': /home/huangshujia/biosoft/minimac/Minimac3/test/refPanel.m3vcf.gz

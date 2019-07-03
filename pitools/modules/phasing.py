@@ -117,9 +117,9 @@ def eagle_region(config, input_file, output_prefix, region, reference_version=No
 
     # set output prefix for eagle
     eagle_param_kw["outPrefix"] = output_prefix
-    eagle_program = Eagle(config, reference_version=reference_version)
     try:
         # run eagle phasing process.
+        eagle_program = Eagle(config, reference_version=reference_version)
         eagle_program.run(**eagle_param_kw)
 
         # get output files by ``output_prefix``
@@ -130,7 +130,10 @@ def eagle_region(config, input_file, output_prefix, region, reference_version=No
 
         return sub_out_phased_file
 
-    except:
-        Log.warn("job for phasing %s is fail, may because can't find chromosome "
-                 "%s in %s.\n" % (region, region, input_file))
-        return
+    except Exception, e:
+        Log.warn("job for phasing %s is fail, there's something wrong happen "
+                 "in %s in %s.\nError: %s\n Ingore phasing.\n" % (
+                 region, region, input_file, e))
+        # Just reture input file. This could be happen if there is just 
+        # one sample in input vcf.
+        return input_file
