@@ -86,7 +86,8 @@ have finished the setting.
 Examples
 ~~~~~~~~
 
-This command would be enough for most of your jobs.
+This command would be enough for most of your jobs, ``--nCPU`` is for setting
+the number of threads.
 
 .. code:: bash
 
@@ -111,10 +112,9 @@ regions. Here is an example for running ``pitools`` in genome region:
         --regions  21:38347375-38500731,22:17203103-17439826 \
         --nCPU 4
 
-PI will perform pre-phasing automatically before perform the imputation
-process. But sometimes your input VCF file has been phased already. And
-you don't want to run it any more then you can set ``--unprephase``
-argument to skip that process.
+``pitools`` will perform pre-phasing automatically before perform the imputation
+process. But sometimes your input VCF file has been phased already. And you don't
+want to run it again then you can set ``--unprephase`` argument to skip that process.
 
 .. code:: bash
 
