@@ -8,6 +8,6 @@ __pycache__/
 
 .DS_Store
 .idea/
-venv/
+venv3/
 
 
