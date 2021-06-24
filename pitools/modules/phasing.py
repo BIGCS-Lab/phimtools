@@ -130,7 +130,7 @@ def eagle_region(config, input_file, output_prefix, region, reference_version=No
 
         return sub_out_phased_file
 
-    except Exception, e:
+    except Exception(e):
         Log.warn("job for phasing %s is fail, there's something wrong happen "
                  "in %s in %s.\nError: %s\n Ingore phasing.\n" % (
                  region, region, input_file, e))
