@@ -13,14 +13,14 @@ except ImportError:
     from distutils.core import setup, find_packages
 
 
-DESCRIPTION = "pitools: A python program for phasing and imputation NGS data."
+DESCRIPTION = "phimtools: A python program for phasing and imputation NGS data."
 meta = Namespace(
-    __DISTNAME__     = "pitools",
+    __DISTNAME__     = "phimtools",
     __AUTHOR__       = "Shujia Huang",
     __AUTHOR_EMAIL__ = "huangshujia9@gmail.com",
-    __URL__          = "https://github.com/ShujiaHuang/pitools",
+    __URL__          = "https://github.com/ShujiaHuang/phimtools",
     __LICENSE__      = "BSD (3-clause)",
-    __DOWNLOAD_URL__ = "https://github.com/ShujiaHuang/pitools",
+    __DOWNLOAD_URL__ = "https://github.com/ShujiaHuang/phimtools",
     __VERSION__      = "1.0.2",
 )
 
@@ -51,7 +51,7 @@ if __name__ == "__main__":
           # scripts=[],
           entry_points={
               "console_scripts": [
-                  "pitools = pitools.pi_process:main"
+                  "phimtools = phimtools.main:main"
               ]
           },
           classifiers=[
