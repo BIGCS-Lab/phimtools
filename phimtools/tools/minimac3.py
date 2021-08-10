@@ -3,8 +3,8 @@
 Author: Shujia Huang
 Date: 2019-05-22
 """
-from pitools.log import Log
-from pitools.launch import do
+from phimtools.log import Log
+from phimtools.launch import do
 
 
 class Minimac(object):

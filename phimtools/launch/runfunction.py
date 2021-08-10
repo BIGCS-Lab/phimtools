@@ -5,22 +5,22 @@ Date: 2019-05-22
 """
 import sys
 
-from pitools.modules.phasing import eagle_region
-from pitools.modules.imputation import minimac
-from pitools.utils import merge_files
-from pitools.modules import get_chromlist
-from pitools.log import Log
+from phimtools.modules.phasing import eagle_region
+from phimtools.modules.imputation import minimac
+from phimtools.utils import merge_files
+from phimtools.modules import get_chromlist
+from phimtools.log import Log
 
 
 def imputation(kwargs, config):
     """Run imputation for VCF files
     """
     if kwargs.impute_method not in ["minimac"]:
-        Log.error("%s is not one of imputation method in pitools pipeline." % kwargs.impute_method)
+        Log.error("%s is not one of imputation method in phimtools pipeline." % kwargs.impute_method)
         sys.exit(1)
 
     if kwargs.phase_method not in ["eagle"]:
-        Log.error("%s is not one of phasing method in pitools pipeline." % kwargs.phase_method)
+        Log.error("%s is not one of phasing method in phimtools pipeline." % kwargs.phase_method)
         sys.exit(1)
 
     if not kwargs.in_vcf.endswith(".vcf.gz") and not kwargs.in_vcf.endswith(".vcf"):

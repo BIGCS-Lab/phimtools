@@ -5,9 +5,9 @@ Date: 2019-05-20
 """
 import os
 
-from pitools.tools.eagle import Eagle
-from pitools.utils import merge_files
-from pitools.log import Log
+from phimtools.tools.eagle import Eagle
+from phimtools.utils import merge_files
+from phimtools.log import Log
 from . import get_chromlist
 
 
@@ -130,10 +130,9 @@ def eagle_region(config, input_file, output_prefix, region, reference_version=No
 
         return sub_out_phased_file
 
-    except Exception(e):
-        Log.warn("job for phasing %s is fail, there's something wrong happen "
-                 "in %s in %s.\nError: %s\n Ingore phasing.\n" % (
-                 region, region, input_file, e))
-        # Just reture input file. This could be happen if there is just 
+    except Exception as e:
+        Log.warn("Job for phasing %s has failed, there's something wrong happen "
+                 "in %s in %s.\nError: %s\n Ignore phasing.\n" % (region, region, input_file, e))
+        # Just return input file. This could be happen if there is just
         # one sample in input vcf.
         return input_file
