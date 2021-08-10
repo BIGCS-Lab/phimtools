@@ -2,7 +2,7 @@ import sys
 
 from logbook import Logger, StreamHandler
 
-LOG_NAME = "pitools"
+LOG_NAME = "phimtools"
 
 log_handler = StreamHandler(sys.stderr)
 log_handler.push_application()
