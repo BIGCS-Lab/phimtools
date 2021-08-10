@@ -15,7 +15,7 @@ from phimtools.tools.check import check_vcf_format
 from phimtools.utils import file_exists
 from phimtools.launch import runfunction
 
-VERSION = "1.0.0"
+VERSION = "1.0.2"
 LONG_DESC = """
 ------------------------------------------------------------------
     phimtools - A program for phasing and imputation analysis.  
