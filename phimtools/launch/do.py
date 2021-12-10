@@ -99,7 +99,7 @@ def _do_run(cmd, checks, log_stdout=False, env=None):
 
             else:
 
-                # output logo information
+                # output log information
                 print("".join(debug_stdout))
                 break
 
@@ -111,3 +111,5 @@ def _do_run(cmd, checks, log_stdout=False, env=None):
         for check in checks:
             if not check():
                 raise IOError("External command failed")
+
+    return
