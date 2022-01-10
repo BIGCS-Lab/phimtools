@@ -46,7 +46,7 @@ def parse_commandline_args(args):
     impute_parser.add_argument("-M", "--methods", dest="impute_method", default="minimac",
                                help="Tool for imputation. [minimac]")
     impute_parser.add_argument("-P", "--prephase-method", dest="phase_method", default="eagle",
-                               help="Tool for pre-phase before imputation. [eagle]")
+                               help="Tool for pre-phase before imputation. [eagle, beagle]")
 
     impute_parser.add_argument("-I", "--input", dest="in_vcf", required=True,
                                help="Input one VCF file to analyze. Required")

@@ -1,11 +1,12 @@
 """Run functions by provided a name with arguments.
 
-Author: Shujia Huang
-Date: 2019-05-22
+Author: Shujia Huang, Chengrui Wang
+Date: 2022-01-10
 """
 import sys
 
 from phimtools.modules.phasing import eagle_region
+from phimtools.modules.phasing import beagle_region
 from phimtools.modules.imputation import minimac
 from phimtools.utils import merge_files
 from phimtools.modules import get_chromlist
@@ -19,7 +20,7 @@ def imputation(kwargs, config):
         Log.error("%s is not one of imputation method in phimtools pipeline." % kwargs.impute_method)
         sys.exit(1)
 
-    if kwargs.phase_method not in ["eagle"]:
+    if kwargs.phase_method not in ["eagle", "beagle"]:
         Log.error("%s is not one of phasing method in phimtools pipeline." % kwargs.phase_method)
         sys.exit(1)
 
@@ -55,6 +56,13 @@ def imputation(kwargs, config):
                                            reg,
                                            reference_version=kwargs.refbuild,
                                            options=[("numThreads", kwargs.nCPU)])
+            elif kwargs.phase_method == "beagle":
+                phased_file = beagle_region(config,
+                                           kwargs.in_vcf,
+                                           kwargs.out_prefix + ".phased",
+                                           reg,
+                                           reference_version=kwargs.refbuild,
+                                           options=[("nthreads", kwargs.nCPU)])
             else:
                 Log.warn("Nothing output")
                 return

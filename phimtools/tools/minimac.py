@@ -8,7 +8,7 @@ from phimtools.launch import do
 
 
 class Minimac(object):
-    """A class for Minimac3 program"""
+    """A class for Minimac3/Minimac4 program"""
 
     def __init__(self, config, reference_panel=None):
         """basical setting for Minimac"""

@@ -3,7 +3,7 @@
 Author: Shujia Huang
 Date: 2019-05-22
 """
-from phimtools.tools.minimac3 import Minimac
+from phimtools.tools.minimac import Minimac
 from phimtools.log import Log
 
 
@@ -20,7 +20,7 @@ def minimac(config, input_file, output_prefix, region, reference_panel=None, opt
     """
     region = str(region)
 
-    Log.info("Performing imputation process for %s by using Minimac3." % region)
+    Log.info("Performing imputation process for %s by using Minimac." % region)
     if options is None:
         options = []
 
