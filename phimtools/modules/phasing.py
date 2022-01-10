@@ -157,7 +157,7 @@ def beagle_region(config, input_file, output_prefix, region, reference_version=N
     beagle_param_kw = {k: v for k, v in options}
 
     # find the format of input file, default set to be "PLINK(bed/bim/fam)"
-    input_format = "VCF" if input_file.endswith(".vcf.gz") or input_file.endswith(".vcf")
+    input_format = "VCF" if input_file.endswith(".vcf.gz") or input_file.endswith(".vcf") else "PLINK"
 
     # set input file
     if input_format == "VCF":

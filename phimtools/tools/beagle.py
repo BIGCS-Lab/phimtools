@@ -27,7 +27,7 @@ class beagle(object):
             ``kwargs``: A dict like
                 key word parameter for beagle
         """
-        cmd = " ".join([self.java, '-jar', self.beagle] + ["map=%s" % self.genetic_map_file] + ["impute=false"]
+        cmd = " ".join([self.java, '-jar', self.beagle] + ["map=%s" % self.genetic_map_file] + ["impute=false"] +
                        ["%s=%s" % (k, v) for k, v in kwargs.items()])
         do.run(cmd)
         return

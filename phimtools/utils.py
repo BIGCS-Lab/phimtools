@@ -80,7 +80,7 @@ def Open(file_name, mode, compress_level=9):
         if not os.path.exists(file_dir):
             file_name = os.path.expanduser(file_name)
 
-        return gzip.GzipFile(file_name, mode, compress_level)
+        return gzip.open(file_name, mode, compress_level)
     else:
         return _expanded_open(file_name, mode)
 
@@ -116,7 +116,7 @@ class FileForQueueing(object):
         while not self.finishedReadingFile and len(self.heap) < 100:
 
             try:
-                line = self.the_file.next()
+                line = next(self.the_file)
                 cols = line.strip().split()
                 chrom = cols[0]
 
@@ -167,7 +167,7 @@ class FileForQueueing(object):
         if not self.finishedReadingFile:
 
             try:
-                line = self.the_file.next()
+                line = next(self.the_file)
                 cols = line.strip().split()
                 chrom = cols[0]
 
@@ -202,13 +202,13 @@ def merge_files(temp_file_names, final_file_name, is_del_raw_file=False):
     if final_file_name == "-":
         output_file = sys.stdout
     else:
-        output_file = Open(final_file_name, 'wb')
+        output_file = Open(final_file_name, 'wt')
 
     the_heap = []
 
     # Initialise queue
     for index, file_name in enumerate(temp_file_names):
-        the_file = Open(file_name, 'r')
+        the_file = Open(file_name, 'rt')
 
         for line in the_file:
 
@@ -220,7 +220,7 @@ def merge_files(temp_file_names, final_file_name, is_del_raw_file=False):
                 the_file_for_queueing = FileForQueueing(the_file, line,
                                                         is_del_raw_file=is_del_raw_file)
                 heapq.heappush(the_heap, the_file_for_queueing)
-                break
+                #break
 
         # If there are no calls in the temp file, we still want to
         # remove it.
@@ -239,7 +239,7 @@ def merge_files(temp_file_names, final_file_name, is_del_raw_file=False):
 
         # Put file back on heap
         try:
-            next_file.next()
+            next(next_file)
             heapq.heappush(the_heap, next_file)
         except StopIteration:
             continue

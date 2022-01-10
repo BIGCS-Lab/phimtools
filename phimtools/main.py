@@ -145,7 +145,7 @@ def main():
         sys.exit(1)
 
     with open(kwargs.config) as C:
-        config = yaml.load(C)
+        config = yaml.safe_load(C)
 
     check_config(config, kwargs)
 
