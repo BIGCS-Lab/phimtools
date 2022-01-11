@@ -83,10 +83,10 @@ def check_config(config, kwargs):
         Log.error("Missing set '%s' path for phasing.\n%s\n" % (phase, conf_msg))
         sys.exit(1)
 
-    if not file_exists(config[phase][phase]):
-        Log.error("%s program is not existed in %s, please check your "
-                  "configuration.\n" % (phase, config[phase][phase]))
-        sys.exit(1)
+    #if not file_exists(config[phase][phase]):
+    #    Log.error("%s program is not existed in %s, please check your "
+    #              "configuration.\n" % (phase, config[phase][phase]))
+    #    sys.exit(1)
 
     if "genetic_map_file" not in config[phase]:
         Log.error("Missing genetic_map_file for %s in config file.\n%s\n" % (phase, conf_msg))
