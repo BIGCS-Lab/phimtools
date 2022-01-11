@@ -6,8 +6,8 @@ Date: 2022-01-07
 from phimtools.launch import do
 
 
-class beagle(object):
-    """A class for Eagle (Version 2.4.1) program"""
+class Beagle(object):
+    """A class for Beagle 5.2 program"""
 
     def __init__(self, config, reference_version=None, chrom=None):
         """basical setting for beagle"""
@@ -27,7 +27,9 @@ class beagle(object):
             ``kwargs``: A dict like
                 key word parameter for beagle
         """
-        cmd = " ".join([self.java, '-jar', self.beagle] + ["map=%s" % self.genetic_map_file] + ["impute=false"] +
+        cmd = " ".join([self.java, '-jar', self.beagle] + 
+                       ["map=%s" % self.genetic_map_file] + 
+                       ["impute=false"] + 
                        ["%s=%s" % (k, v) for k, v in kwargs.items()])
         do.run(cmd)
         return
