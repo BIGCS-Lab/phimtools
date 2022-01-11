@@ -220,7 +220,7 @@ def merge_files(temp_file_names, final_file_name, is_del_raw_file=False):
                 the_file_for_queueing = FileForQueueing(the_file, line,
                                                         is_del_raw_file=is_del_raw_file)
                 heapq.heappush(the_heap, the_file_for_queueing)
-                #break
+                break
 
         # If there are no calls in the temp file, we still want to
         # remove it.
@@ -239,7 +239,7 @@ def merge_files(temp_file_names, final_file_name, is_del_raw_file=False):
 
         # Put file back on heap
         try:
-            next(next_file)
+            next_file.next()
             heapq.heappush(the_heap, next_file)
         except StopIteration:
             continue

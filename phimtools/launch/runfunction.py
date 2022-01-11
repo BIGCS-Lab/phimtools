@@ -81,7 +81,7 @@ def imputation(kwargs, config):
                 out_impute_files.append(sub_out_impute_files)
 
     # Todo: Merge different kinds of output files
-    '''final_out_impute_file = "%s.final.vcf.gz" % kwargs.out_prefix
+    final_out_impute_file = "%s.final.vcf.gz" % kwargs.out_prefix
     if out_impute_files:
         # Just merge the imputed VCF files
         merge_files([f[0] for f in out_impute_files], final_out_impute_file,
@@ -90,4 +90,4 @@ def imputation(kwargs, config):
         return final_out_impute_file
     else:
         Log.warn("Nothing output")
-        return'''
+        return
