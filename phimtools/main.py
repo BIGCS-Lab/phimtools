@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """The pipeline for phasing and imputation process.
 
 Author: Shujia Huang
@@ -15,18 +14,18 @@ from phimtools.tools.check import check_vcf_format
 from phimtools.utils import file_exists
 from phimtools.launch import runfunction
 
-VERSION = "1.0.2"
+VERSION = "1.1.0"
 LONG_DESC = """
 ------------------------------------------------------------------
     phimtools - A program for phasing and imputation analysis.  
 ------------------------------------------------------------------
-                   (c) 2019 - Shujia Huang                      
+           (c) 2019-2022 - Shujia Huang & Chengrui Wang
        Distributed under the GNU GPLv3+ open source license.    
 
 Version {version}                                                     
 
 URL = https://github.com/BIGCS-Lab/phimtools
------------------------------------------------------------------
+------------------------------------------------------------------
 """.format(version=VERSION)
 
 
@@ -42,27 +41,27 @@ def parse_commandline_args(args):
     impute_parser.add_argument("-C", "--conf", dest="config", required=True,
                                help="YAML configuration file specifying details information "
                                     "for imputation")
-
     impute_parser.add_argument("-M", "--methods", dest="impute_method", default="minimac",
                                help="Tool for imputation. [minimac]")
     impute_parser.add_argument("-P", "--prephase-method", dest="phase_method", default="eagle",
-                               help="Tool for pre-phase before imputation. [eagle, beagle]")
+                               help="Tool for pre-phase before imputation, could only be eagle "
+                                    "or beagle. [eagle]")
 
     impute_parser.add_argument("-I", "--input", dest="in_vcf", required=True,
                                help="Input one VCF file to analyze. Required")
-
     impute_parser.add_argument("-O", "--outprefix", dest="out_prefix", required=True,
                                help="Prefix for output files. Required")
     impute_parser.add_argument("--refpanel-version", dest="refpanel", required=True,
                                help="The version of haplotype data for reference panel. Required")
     impute_parser.add_argument("--reference-build", dest="refbuild", required=True,
-                               help="The build version of reference, e.g: GRCh37")
+                               help="The build version of reference, e.g: GRCh38")
 
-    impute_parser.add_argument("--unprephase", dest="is_unprephase", action='store_true',
+    impute_parser.add_argument("--unprephase", dest="is_unprephase", action="store_true",
                                help="Do not perform pre-phased before the imputation process.")
-    impute_parser.add_argument("--regions", metavar="chr:start-end", type=str, dest="regions", default="",
-                               help="Skip positions which not in these regions. This parameter could be a list "
-                                    "of comma deleimited genome regions(e.g.: chr:start-end,chr:start-end)")
+    impute_parser.add_argument("--regions", metavar="chr:start-end", type=str, dest="regions",
+                               default="", help="Skip positions which not in these regions. This "
+                                                "parameter could be a list of comma deleimited genome "
+                                                "regions(e.g.: chr:start-end,chr:start-end)")
 
     impute_parser.add_argument("--nCPU", dest="nCPU", type=int, default=1, help="Number of threads. [1]")
 
@@ -137,7 +136,6 @@ def main():
     sys.stderr.write("%s\n" % LONG_DESC)
 
     kwargs = parse_commandline_args(sys.argv[1:])
-
     if "config" not in kwargs:
         Log.error("missing YAML configuration files by -C (--conf).\n")
         sys.exit(1)
