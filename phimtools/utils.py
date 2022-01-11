@@ -193,8 +193,8 @@ class FileForQueueing(object):
 
 
 def merge_files(temp_file_names, final_file_name, is_del_raw_file=False):
-    """
-    Merging output VCF/CVG files into a final big one
+    """Merging multiple VCF/CVG files into a final big one
+
     log.info("Merging output VCF/CVG file(s) into final file %s" %(final_file_name))
     """
 
