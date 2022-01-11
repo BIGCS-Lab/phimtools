@@ -64,7 +64,7 @@ def eagle(config, input_file, output_prefix, options=None, reference_version=Non
             final_out_haps_file = "%s.haps.gz" % output_prefix
 
             # Todo: Make a suitable function for mergeing subfiles PLINK format output
-            # it's not work right now!
+            # it's NOT WORK right now!
             merge_files([h for h, _ in out_phased_files], final_out_haps_file, is_del_raw_file=True)
 
             # remove other *.sample files, because they're the same, we can just keep the first one.
@@ -73,9 +73,10 @@ def eagle(config, input_file, output_prefix, options=None, reference_version=Non
 
             return final_out_haps_file, os.rename(out_phased_files[0][1], "%s.sample" % output_prefix)
     else:
-
         # Return a list of phased files
         return out_phased_files
+
+    return  # NULL
 
 
 def eagle_region(config, input_file, output_prefix, region, reference_version=None, options=None):
@@ -84,7 +85,9 @@ def eagle_region(config, input_file, output_prefix, region, reference_version=No
     Parameters:
         ``region``: String
             A genome region for eagle, format like chr_id:start-end
+
         ``options``: A tuple list of eagle parameters
+
         ``reference_version``: A string.
                 set reference version for phasing process
     """
@@ -134,7 +137,7 @@ def eagle_region(config, input_file, output_prefix, region, reference_version=No
     except Exception as e:
         Log.warn("Job for phasing %s has failed, there's something wrong happen "
                  "in %s in %s.\nError: %s\n Ignore phasing.\n" % (region, region, input_file, e))
-        # Just return input file. This could be happen if there is just
+        # Just return input file. This could be happen if there is only
         # one sample in input vcf.
         return input_file
 
@@ -165,30 +168,31 @@ def beagle_region(config, input_file, output_prefix, region, reference_version=N
         beagle_param_kw["gt"] = input_file
 
     else:
-        Log.warn("Job for phasing %s has failed, please input VCF format file for beagle phasing.\nError: %s\n" % (region, input_file))
-        # Just return input file. This could be happen if there is just
+        Log.warn("Job for phasing %s has failed, please input VCF format file for "
+                 "beagle phasing.\nError: %s\n" % (region, input_file))
+        # Just return input file. This could be happen if there is only
         # one sample in input vcf.
         return input_file
 
     # set the region for beagle
-    genome_region = region # chrom:start-end
+    genome_region = region  # chrom:start-end
     beagle_param_kw["chrom"] = genome_region
 
     # set output prefix for eagle
     beagle_param_kw["out"] = output_prefix
     try:
         # run eagle phasing process.
-        beagle_program = Beagle(config, reference_version=reference_version, chrom=genome_region.split(":")[0].lower().replace("chr",""))
+        beagle_program = Beagle(config, reference_version=reference_version,
+                                chrom=genome_region.split(":")[0].lower().replace("chr", ""))
         beagle_program.run(**beagle_param_kw)
 
         # get output files by ``output_prefix``
         sub_out_phased_file = "%s.vcf.gz" % output_prefix
-
         return sub_out_phased_file
 
     except Exception as e:
         Log.warn("Job for phasing %s has failed, there's something wrong happen "
                  "in %s.\nError: %s\n Ignore phasing.\n" % (region, input_file, e))
-        # Just return input file. This could be happen if there is just
+        # Just return input file. This could be happen if there is only
         # one sample in input vcf.
         return input_file

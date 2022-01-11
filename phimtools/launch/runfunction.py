@@ -1,12 +1,11 @@
 """Run functions by provided a name with arguments.
 
-Author: Shujia Huang, Chengrui Wang
+Author: Shujia Huang and Chengrui Wang
 Date: 2022-01-10
 """
 import sys
 
-from phimtools.modules.phasing import eagle_region
-from phimtools.modules.phasing import beagle_region
+from phimtools.modules.phasing import eagle_region, beagle_region
 from phimtools.modules.imputation import minimac
 from phimtools.utils import merge_files
 from phimtools.modules import get_chromlist
@@ -17,11 +16,13 @@ def imputation(kwargs, config):
     """Run imputation for VCF files
     """
     if kwargs.impute_method not in ["minimac"]:
-        Log.error("%s is not one of imputation method in phimtools pipeline." % kwargs.impute_method)
+        Log.error("%s is not one of the imputation methods in "
+                  "phimtools pipeline." % kwargs.impute_method)
         sys.exit(1)
 
     if kwargs.phase_method not in ["eagle", "beagle"]:
-        Log.error("%s is not one of phasing method in phimtools pipeline." % kwargs.phase_method)
+        Log.error("%s is not one of the phasing methods in "
+                  "phimtools pipeline." % kwargs.phase_method)
         sys.exit(1)
 
     if not kwargs.in_vcf.endswith(".vcf.gz") and not kwargs.in_vcf.endswith(".vcf"):
@@ -58,11 +59,11 @@ def imputation(kwargs, config):
                                            options=[("numThreads", kwargs.nCPU)])
             elif kwargs.phase_method == "beagle":
                 phased_file = beagle_region(config,
-                                           kwargs.in_vcf,
-                                           kwargs.out_prefix + ".phased",
-                                           reg,
-                                           reference_version=kwargs.refbuild,
-                                           options=[("nthreads", kwargs.nCPU)])
+                                            kwargs.in_vcf,
+                                            kwargs.out_prefix + ".phased",
+                                            reg,
+                                            reference_version=kwargs.refbuild,
+                                            options=[("nthreads", kwargs.nCPU)])
             else:
                 Log.warn("Nothing output")
                 return
@@ -83,7 +84,7 @@ def imputation(kwargs, config):
     # Todo: Merge different kinds of output files
     final_out_impute_file = "%s.final.vcf.gz" % kwargs.out_prefix
     if out_impute_files:
-        # Just merge the imputed VCF files
+        # merge the output imputed VCF files
         merge_files([f[0] for f in out_impute_files], final_out_impute_file,
                     is_del_raw_file=True)
 
