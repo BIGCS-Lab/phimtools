@@ -3,6 +3,7 @@
 Author: Shujia Huang
 Date: 2019-05-20
 """
+import os
 from phimtools.launch import do
 
 
@@ -12,7 +13,13 @@ class Eagle(object):
     def __init__(self, config, reference_version=None):
         """basical setting for Eagle"""
 
-        self.eagle = config["eagle"]["eagle"]
+        module_path = os.path.dirname(__file__)
+        bin_path = module_path.replace('tools','bin')
+
+        if os.path.exists(config["eagle"]["eagle"]):
+            self.eagle = config["eagle"]["eagle"]
+        else:
+            self.eagle = bin_path + '/eagle'
         self.genetic_map_file = config["eagle"]["genetic_map_file"][reference_version]
 
     def help(self):
