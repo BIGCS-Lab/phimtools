@@ -6,7 +6,7 @@ Date: 2019-05-20
 import os
 
 from phimtools.tools.eagle import Eagle
-from phimtools.tools.beagle import beagle
+from phimtools.tools.beagle import Beagle
 from phimtools.utils import merge_files
 from phimtools.log import Log
 from . import get_chromlist
@@ -138,6 +138,7 @@ def eagle_region(config, input_file, output_prefix, region, reference_version=No
         # one sample in input vcf.
         return input_file
 
+
 def beagle_region(config, input_file, output_prefix, region, reference_version=None, options=None):
     """A phasing function by beagle for a specific genome region.
 
@@ -177,7 +178,7 @@ def beagle_region(config, input_file, output_prefix, region, reference_version=N
     beagle_param_kw["out"] = output_prefix
     try:
         # run eagle phasing process.
-        beagle_program = beagle(config, reference_version=reference_version, chrom=genome_region.split(":")[0].lower().replace("chr",""))
+        beagle_program = Beagle(config, reference_version=reference_version, chrom=genome_region.split(":")[0].lower().replace("chr",""))
         beagle_program.run(**beagle_param_kw)
 
         # get output files by ``output_prefix``
