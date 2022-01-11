@@ -25,7 +25,7 @@ LONG_DESC = """
 
 Version {version}                                                     
 
-URL = https://github.com/ShujiaHuang/phimtools                         
+URL = https://github.com/BIGCS-Lab/phimtools
 -----------------------------------------------------------------
 """.format(version=VERSION)
 
@@ -67,14 +67,13 @@ def parse_commandline_args(args):
     impute_parser.add_argument("--nCPU", dest="nCPU", type=int, default=1, help="Number of threads. [1]")
 
     # For phasing
-
     return parser.parse_args(args)
 
 
 def check_config(config, kwargs):
     """Check the most important parameters is setted or not."""
 
-    conf_msg = "Please find an example: https://github.com/ShujiaHuang/phimtools/blob/master/tests/config.yaml"
+    conf_msg = "Please find an example: https://github.com/BIGCS-Lab/phimtools/blob/master/tests/config.yaml"
 
     phase = kwargs.phase_method
     if phase not in config:
@@ -135,7 +134,6 @@ def check_config(config, kwargs):
 def main():
     """Main function"""
     start_time = datetime.now()
-
     sys.stderr.write("%s\n" % LONG_DESC)
 
     kwargs = parse_commandline_args(sys.argv[1:])
