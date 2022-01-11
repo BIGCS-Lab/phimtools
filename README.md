@@ -23,13 +23,6 @@ Install the released version by pip:
 pip install phimtools
 ```
 
-Or you may instead want to install the development version from github,
-by running:
-
-```bash
-pip install git+git://github.com/ShujiaHuang/phimtools.git#egg=phimtools
-```
-
 This command will install phimtools in your system and you can use
 `phimtools` in your commandline.
 
