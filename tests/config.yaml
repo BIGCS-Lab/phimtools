@@ -6,13 +6,13 @@ eagle:
         GRCh38: /home/huangshujia/biosoft/eagle/2.4.1/tables/genetic_map_hg38_withX.txt.gz
 
 beagle:
-    beagle: /home/wangcr/Softwares/beagle5.2/beagle.28Jun21.220.jar
+    beagle: /Users/huangshujia/BioSoftware/beagel/5.2/beagle.28Jun21.220.jar
     genetic_map_file:
         GRCh38:
             '22': data/beagle/test.GRCh38.chr22.genetic_map.txt
 
 minimac:
-    minimac: /home/huangshujia/biosoft/minimac/Minimac3/bin/Minimac3
+    minimac: /Users/huangshujia/BioSoftware/minimac/Minimac3/bin/Minimac3
     reference_panel:
         test_panel:
             '22':  data/beagle/ref_panel.chr22.m3vcf.gz
