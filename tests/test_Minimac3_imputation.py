@@ -1,4 +1,4 @@
-"""Test module for Minimac3"""
+"""Test module for Minimac3 or Minimac4"""
 import yaml
 
 from phimtools.utils import safe_makedir

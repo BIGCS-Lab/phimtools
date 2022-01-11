@@ -11,7 +11,7 @@ config=$2
 refbuild=$3
 refpanel=$4
 
-pi=/var/lib/docker/USER/huangshujia/project/201905_Imputation_server/bin/pi/venv/bin/pitools
+pi=phimtools
 
 ### 
 in_file_ext=`basename $input | awk 'BEGIN{FS=".";}{print $(NF-1)"."$NF}'`
