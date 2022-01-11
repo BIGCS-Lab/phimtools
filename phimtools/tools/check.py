@@ -42,7 +42,7 @@ def check_vcf_format(in_vcf_file, chr_error_given=True):
 
     prev_pos = {}
     snp_site = set()
-    with Open(in_vcf_file, 'r') as I:
+    with Open(in_vcf_file, 'rt') as I:
 
         for line in I:
             if num % 10000 == 0 and num != 0:

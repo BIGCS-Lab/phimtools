@@ -68,7 +68,8 @@ def _do_run(cmd, checks, log_stdout=False, env=None):
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         close_fds=True,
-        env=env
+        env=env,
+        encoding="utf-8"
     )
 
     debug_stdout = collections.deque(maxlen=100)
