@@ -14,7 +14,7 @@ class Beagle(object):
         """basical setting for beagle"""
 
         module_path = os.path.dirname(__file__)
-        bin_path = module_path.replace('/phimtools/tools','/third_party')
+        bin_path = module_path.replace('/phimtools/tools','/phimtools/third_party')
 
         if os.path.exists(config["beagle"]["beagle"]):
             self.beagle = config["beagle"]["beagle"]

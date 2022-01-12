@@ -14,7 +14,7 @@ class Eagle(object):
         """basical setting for Eagle"""
 
         module_path = os.path.dirname(__file__)
-        bin_path = module_path.replace('/phimtools/tools','/third_party')
+        bin_path = module_path.replace('/phimtools/tools','/phimtools/third_party')
 
         if os.path.exists(config["eagle"]["eagle"]):
             self.eagle = config["eagle"]["eagle"]
