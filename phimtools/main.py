@@ -1,5 +1,4 @@
 """The pipeline for phasing and imputation process.
-
 Author: Shujia Huang
 Date: 2019-05-22
 """
@@ -21,9 +20,7 @@ LONG_DESC = """
 ------------------------------------------------------------------
            (c) 2019-2022 - Shujia Huang & Chengrui Wang
        Distributed under the GNU GPLv3+ open source license.    
-
 Version {version}                                                     
-
 URL = https://github.com/BIGCS-Lab/phimtools
 ------------------------------------------------------------------
 """.format(version=VERSION)

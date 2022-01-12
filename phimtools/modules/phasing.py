@@ -147,8 +147,8 @@ def beagle_region(config, input_file, output_prefix, region, reference_version=N
 
     Parameters:
         ``region``: String
-            A genome region for eagle, format like chr_id:start-end
-        ``options``: A tuple list of eagle parameters
+            A genome region for beagle, format like chr_id:start-end
+        ``options``: A tuple list of beagle parameters
         ``reference_version``: A string.
                 set reference version for phasing process
     """
@@ -178,10 +178,10 @@ def beagle_region(config, input_file, output_prefix, region, reference_version=N
     genome_region = region  # chrom:start-end
     beagle_param_kw["chrom"] = genome_region
 
-    # set output prefix for eagle
+    # set output prefix for beagle
     beagle_param_kw["out"] = output_prefix
     try:
-        # run eagle phasing process.
+        # run beagle phasing process.
         beagle_program = Beagle(config, reference_version=reference_version,
                                 chrom=genome_region.split(":")[0].lower().replace("chr", ""))
         beagle_program.run(**beagle_param_kw)

@@ -4,6 +4,8 @@ Author: Shujia Huang
 Date: 2019-05-20
 """
 import os
+import sys
+from phimtools.log import Log
 from phimtools.launch import do
 
 
@@ -14,12 +16,16 @@ class Eagle(object):
         """basical setting for Eagle"""
 
         module_path = os.path.dirname(__file__)
-        bin_path = module_path.replace('/phimtools/tools','/third_party')
+        bin_path = module_path.replace('/phimtools/tools','/phimtools/third_party')
 
         if os.path.exists(config["eagle"]["eagle"]):
             self.eagle = config["eagle"]["eagle"]
-        else:
+        elif os.path.exists(bin_path + '/eagle'):
             self.eagle = bin_path + '/eagle'
+        else:
+            Log.error("Eagle program is not existed\n")
+            sys.exit(1)
+
         self.genetic_map_file = config["eagle"]["genetic_map_file"][reference_version]
 
     def help(self):
