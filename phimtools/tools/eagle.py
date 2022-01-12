@@ -4,6 +4,7 @@ Author: Shujia Huang
 Date: 2019-05-20
 """
 import os
+import stat
 import sys
 from phimtools.log import Log
 from phimtools.launch import do
@@ -21,6 +22,7 @@ class Eagle(object):
         if os.path.exists(config["eagle"]["eagle"]):
             self.eagle = config["eagle"]["eagle"]
         elif os.path.exists(bin_path + '/eagle'):
+            os.chmod(bin_path + '/eagle', stat.S_IXUSR)
             self.eagle = bin_path + '/eagle'
         else:
             Log.error("Eagle program is not existed\n")
