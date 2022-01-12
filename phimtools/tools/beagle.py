@@ -4,6 +4,8 @@ Author: Chengrui Wang
 Date: 2022-01-07
 """
 import os
+import sys
+from phimtools.log import Log
 from phimtools.launch import do
 
 
@@ -18,8 +20,11 @@ class Beagle(object):
 
         if os.path.exists(config["beagle"]["beagle"]):
             self.beagle = config["beagle"]["beagle"]
-        else:
+        elif os.path.exists(bin_path + '/beagle.28Jun21.220.jar'):
             self.beagle = bin_path + '/beagle.28Jun21.220.jar'
+        else:
+            Log.error("beagle program is not existed\n")
+            sys.exit(1)
 
         self.java = config["java"]
         self.genetic_map_file = config["beagle"]["genetic_map_file"][reference_version][chrom]
