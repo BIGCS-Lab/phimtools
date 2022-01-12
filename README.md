@@ -39,14 +39,12 @@ Ensure that Eagle, beagle (requires Java version 8), and minimac4 (or minimac3) 
     + genetic_maps: http://bochet.gcc.biostat.washington.edu/beagle/genetic_maps/
 - Minimac4
     + install: 
-    `sudo apt install minimac4` 
-    or 
     ```
     git clone https://github.com/statgen/Minimac4.git
     cd Minimac4
     bash install.sh
     ```
-    + Reference Panels: https://genome.sph.umich.edu/wiki/Minimac4
+    + Detail and Reference Panels: https://genome.sph.umich.edu/wiki/Minimac4
 
 ### Usage
 
