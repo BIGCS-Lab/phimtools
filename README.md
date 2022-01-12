@@ -30,12 +30,14 @@ This command will install phimtools in your system and you can use
 `phimtools` in your commandline.
 
 ### Important notes before starting
-Ensure that Eagle, beagle (requires Java version 8), and minimac4 (or minimac3) softwares are installed in your analysis environment.
+We have Eagle_v2.4.1 and beagle_5.2 built in phimtools.
+However, ensure that Java version 8 (for beagle), and minimac4 (or minimac3) softwares are installed in your analysis environment.
+
+Reference_panel or genetic_map files should be download from:
 
 - Eagle 
     + download: https://alkesgroup.broadinstitute.org/Eagle/downloads/Eagle_v2.4.1.tar.gz
 - beagle
-    + Java executor: https://faculty.washington.edu/browning/beagle/beagle.28Jun21.220.jar
     + genetic_maps: http://bochet.gcc.biostat.washington.edu/beagle/genetic_maps/
 - Minimac4
     + install: 
