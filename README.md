@@ -50,7 +50,21 @@ Reference_panel or genetic_map files should be download from:
 
 ### Usage
 
-You can find all the parameter for imputation process by running
+You can find all the submodules for phasing and imputation process by running:
+`phimtools --help`:
+
+    usage: phimtools {impute, eagle, beagle, minimac} [option] ...
+
+    Pipeline:
+        impute   (Recommend) Run phasing and imputation pipeline for NGS data.
+
+    Third-party programs:
+        eagle    Run eagle independently.
+        beagle   Run beagle independently.
+        minimac  Run minimac independently (if availabled).
+
+
+impute pipeline is recommended by running:
 `phimtools impute --help`:
 
     usage: phimtools impute [-h] -C CONFIG [-M IMPUTE_METHOD] [-P PHASE_METHOD] -I IN_VCF
