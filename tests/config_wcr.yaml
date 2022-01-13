@@ -1,5 +1,3 @@
-java: /usr/bin/java
-
 eagle:
     eagle: /home/wangcr/Softwares/Eagle_v2.4.1/eagle
     genetic_map_file:

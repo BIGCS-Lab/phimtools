@@ -12,19 +12,16 @@ from phimtools.log import Log
 from phimtools.tools.check import check_vcf_format
 from phimtools.utils import file_exists
 from phimtools.launch import runfunction
-from phimtools.tools.eagle import Eagle_without_config
-from phimtools.tools.beagle import beagle_without_config
-from phimtools.tools.minimac import minimac_without_config
 
 VERSION = "1.1.0"
 LONG_DESC = """
 ------------------------------------------------------------------
     phimtools - A program for phasing and imputation analysis.  
 ------------------------------------------------------------------
-        (c) 2019-2022 - Shujia Huang & Chengrui Wang
-        Distributed under the GNU GPLv3+ open source license.    
-        Version {version}                                                     
-        URL = https://github.com/BIGCS-Lab/phimtools
+           (c) 2019-2022 - Shujia Huang & Chengrui Wang
+       Distributed under the GNU GPLv3+ open source license.    
+Version {version}                                                     
+URL = https://github.com/BIGCS-Lab/phimtools
 ------------------------------------------------------------------
 """.format(version=VERSION)
 
@@ -37,7 +34,7 @@ def parse_commandline_args(args):
     subparser = parser.add_subparsers(help="phimtools supplemental commands")
 
     # For imputation
-    impute_parser = subparser.add_parser("impute", help="Run phasing and imputation pipeline for NGS data.")
+    impute_parser = subparser.add_parser("impute", help="Run imputation for NGS data.")
     impute_parser.add_argument("-C", "--conf", dest="config", required=True,
                                help="YAML configuration file specifying details information "
                                     "for imputation")
@@ -130,10 +127,12 @@ def check_config(config, kwargs):
     return
 
 
-def PhaseImpute(kwargs):
-    """Phase and impute function"""
-
+def main():
+    """Main function"""
     start_time = datetime.now()
+    sys.stderr.write("%s\n" % LONG_DESC)
+
+    kwargs = parse_commandline_args(sys.argv[1:])
     if "config" not in kwargs:
         Log.error("missing YAML configuration files by -C (--conf).\n")
         sys.exit(1)
@@ -150,55 +149,6 @@ def PhaseImpute(kwargs):
     elapsed_time = datetime.now() - start_time
     Log.info("%s successfully done, %d seconds elapsed.\n" % (sys.argv[1], elapsed_time.seconds))
 
-def run_eagle(param):
-    """Run eagle independently"""
-
-    eagle_program = Eagle_without_config(param)
-    eagle_program.run()
-
-def run_beagle(param):
-    """Run beagle independently"""
-
-    beagle_program = beagle_without_config(param)
-    beagle_program.run()
-
-def run_minimac(param):
-    """Run minimac independently (if availabled)"""
-
-    minimac_program = minimac_without_config(param)
-    minimac_program.run()
-
-def main():
-    """
-usage: phimtools {impute, eagle, beagle, minimac} [option] ...
-
-    Pipeline:
-        impute   (Recommend) Run phasing and imputation pipeline for NGS data.
-            
-    Third-party programs:
-        eagle    Run eagle independently.
-        beagle   Run beagle independently.
-        minimac  Run minimac independently (if availabled).
-    """
-
-    sys.stderr.write("%s\n" % LONG_DESC)
-
-    if len(sys.argv)==1:
-        Log.warn(main.__doc__)
-        sys.exit(1)
-    else:
-        if sys.argv[1] == "impute":
-            kwargs = parse_commandline_args(sys.argv[1:])
-            PhaseImpute(kwargs)
-        elif sys.argv[1] == "eagle":
-            run_eagle(sys.argv[2:])
-        elif sys.argv[1] == "beagle":
-            run_beagle(sys.argv[2:])
-        elif sys.argv[1] == "minimac":
-            run_minimac(sys.argv[2:])
-        else:
-            Log.warn(main.__doc__)
-            sys.exit(1)
 
 if __name__ == "__main__":
     main()
