@@ -60,6 +60,7 @@ class Eagle_without_config(object):
         module_path = os.path.dirname(__file__)
         bin_path = module_path.replace('/phimtools/tools','/phimtools/third_party')
 
+        os.chmod(bin_path + '/eagle', stat.S_IXUSR)
         self.eagle = bin_path + '/eagle'
         self.param_kw = param_kw
 
