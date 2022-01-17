@@ -13,7 +13,6 @@ from datetime import datetime
 from phimtools.log import Log
 from phimtools.tools.check import check_vcf_format
 from phimtools.utils import file_exists
-from phimtools.launch import do
 from phimtools.launch import runfunction
 from phimtools.tools.eagle import Eagle_without_config
 from phimtools.tools.beagle import beagle_without_config
@@ -44,33 +43,45 @@ def parse_commandline_args(args):
     subparser = parser.add_subparsers(help="phimtools supplemental commands")
 
     # For imputation
-    impute_parser = subparser.add_parser("impute", help="Run phasing and imputation pipeline for NGS data.")
+    impute_parser = subparser.add_parser("impute", help="Run phasing and "
+                                         "imputation pipeline for NGS data.")
     impute_parser.add_argument("-C", "--conf", dest="config", required=True,
-                               help="YAML configuration file specifying details information "
-                                    "for imputation")
-    impute_parser.add_argument("-M", "--methods", dest="impute_method", default="minimac",
+                               help="YAML configuration file specifying "
+                                    "details information for imputation")
+    impute_parser.add_argument("-M", "--methods", dest="impute_method", 
+                               default="minimac",
                                help="Tool for imputation. [minimac]")
-    impute_parser.add_argument("-P", "--prephase-method", dest="phase_method", default="eagle",
-                               help="Tool for pre-phase before imputation, could only be eagle "
-                                    "or beagle. [eagle]")
+    impute_parser.add_argument("-P", "--prephase-method", dest="phase_method", 
+                               default="eagle",
+                               help="Tool for pre-phase before imputation, "
+                                    "could only be eagle or beagle. [eagle]")
 
     impute_parser.add_argument("-I", "--input", dest="in_vcf", required=True,
                                help="Input one VCF file to analyze. Required")
-    impute_parser.add_argument("-O", "--outprefix", dest="out_prefix", required=True,
+    impute_parser.add_argument("-O", "--outprefix", dest="out_prefix", 
+                               required=True,
                                help="Prefix for output files. Required")
-    impute_parser.add_argument("--refpanel-version", dest="refpanel", required=True,
-                               help="The version of haplotype data for reference panel. Required")
-    impute_parser.add_argument("--reference-build", dest="refbuild", required=True,
-                               help="The build version of reference, e.g: GRCh38")
+    impute_parser.add_argument("--refpanel-version", dest="refpanel", 
+                               required=True,
+                               help="The version of haplotype data for "
+                               "reference panel. Required")
+    impute_parser.add_argument("--reference-build", dest="refbuild", 
+                               required=True,
+                               help="The build version of reference, "
+                               "e.g: GRCh38")
 
-    impute_parser.add_argument("--unprephase", dest="is_unprephase", action="store_true",
-                               help="Do not perform pre-phased before the imputation process.")
-    impute_parser.add_argument("--regions", metavar="chr:start-end", type=str, dest="regions",
-                               default="", help="Skip positions which not in these regions. This "
-                                                "parameter could be a list of comma deleimited genome "
-                                                "regions(e.g.: chr:start-end,chr:start-end)")
+    impute_parser.add_argument("--unprephase", dest="is_unprephase", 
+                               action="store_true", help="Do not perform "
+                               "pre-phased before the imputation process.")
+    impute_parser.add_argument("--regions", metavar="chr:start-end", type=str, 
+                               dest="regions", default="", 
+                               help="Skip positions which not in these "
+                                    "regions. This parameter could be a list "
+                                    "of comma deleimited genome regions"
+                                    "(e.g.: chr:start-end,chr:start-end)")
 
-    impute_parser.add_argument("--nCPU", dest="nCPU", type=int, default=1, help="Number of threads. [1]")
+    impute_parser.add_argument("--nCPU", dest="nCPU", type=int, default=1, 
+                               help="Number of threads. [1]")
 
     # For phasing
     return parser.parse_args(args)
@@ -79,19 +90,23 @@ def parse_commandline_args(args):
 def init_commandline_args(args):
     """Parse input commandline arguments, handling multiple cases."""
 
-    desc = "Initialization - Configure the absolute path for third-party softwares."
+    desc = ("Initialization - Configure the absolute path "
+            "for third-party softwares.")
     parser = argparse.ArgumentParser(description=desc)
     subparser = parser.add_subparsers(help="phimtools initialization commands")
 
     # For third-party softwares configuration
-    init_parser = subparser.add_parser("init", help="Third-party softwares configuration.")
+    init_parser = subparser.add_parser("init", 
+                                       help="Third-party softwares "
+                                       "configuration.")
 
     init_parser.add_argument("-e", "--eagle", dest="eagle", 
                              help="Specify the absolute path of the Eagle")
     init_parser.add_argument("-b", "--beagle", dest="beagle", 
                              help="Specify the absolute path of the beagle")
     init_parser.add_argument("-m", "--minimac", dest="minimac",
-                             help="Specify the absolute path of the Minimac3/minimac4")
+                             help="Specify the absolute path of the "
+                             "Minimac3/minimac4")
 
     return parser.parse_args(args)
 
@@ -99,25 +114,25 @@ def init_commandline_args(args):
 def check_config(config, kwargs):
     """Check the most important parameters is setted or not."""
 
-    conf_msg = "Please find an example: https://github.com/BIGCS-Lab/phimtools/blob/master/tests/config.yaml"
+    conf_msg = ("Please find an example: https://github.com/BIGCS-Lab/"
+                "phimtools/blob/master/tests/config.yaml")
 
     phase = kwargs.phase_method
     if phase not in config:
         Log.error("Missing '%s' in config file.\n%s\n" % (phase, conf_msg))
         sys.exit(1)
 
-    #if phase not in config[phase]:
-    #    Log.error("Missing set '%s' path for phasing.\n%s\n" % (phase, conf_msg))
-    #    sys.exit(1)
-
     if "genetic_map_file" not in config[phase]:
-        Log.error("Missing genetic_map_file for %s in config file.\n%s\n" % (phase, conf_msg))
+        Log.error("Missing genetic_map_file for %s in config file.\n%s\n" % 
+                  (phase, conf_msg))
         sys.exit(1)
 
     if kwargs.refbuild not in config[phase]["genetic_map_file"]:
         k = ",".join(config[phase]["genetic_map_file"].keys())
-        Log.error("%s is not been setted for %s in config file. The key of genetic_map_file "
-                  "can only be:\n%s\n%s\n" % (kwargs.refbuild, phase, k, conf_msg))
+        Log.error("%s is not been setted for %s in config file. "
+                  "The key of genetic_map_file "
+                  "can only be:\n%s\n%s\n" % 
+                  (kwargs.refbuild, phase, k, conf_msg))
         sys.exit(1)
 
     impute = kwargs.impute_method
@@ -125,23 +140,22 @@ def check_config(config, kwargs):
         Log.error("Missing '%s' in config file.\n%s\n" % (impute, conf_msg))
         sys.exit(1)
 
-    #if impute not in config[impute]:
-    #    Log.error("Missing set '%s' path for phasing.\n%s\n" % (impute, conf_msg))
-    #    sys.exit(1)
-
     if "reference_panel" not in config[impute]:
-        Log.error("Missing reference_panel for %s in config file.\n%s\n" % (impute, conf_msg))
+        Log.error("Missing reference_panel for %s in config file.\n%s\n" % 
+                  (impute, conf_msg))
         sys.exit(1)
 
     if kwargs.refpanel not in config[impute]["reference_panel"]:
         k = ",".join(config[impute]["reference_panel"].keys())
-        Log.error("%s is not been setted in config file. The key of reference_panel "
+        Log.error("%s is not been setted in config file. "
+                  "The key of reference_panel "
                   "can only be:\n%s\n%s\n" % (kwargs.refpanel, k, conf_msg))
         sys.exit(1)
 
     for _, v in config[impute]["reference_panel"][kwargs.refpanel].items():
         if not file_exists(v):
-            Log.error("%s not exists, please check the configuration file.\n" % v)
+            Log.error("%s not exists, please check the configuration file.\n" % 
+                      v)
             sys.exit(1)
     return
 
@@ -169,27 +183,32 @@ def Initialization(kwargs2):
 
     with open(p, 'w') as toolstore:
         if kwargs2.eagle and check_file_exist(kwargs2.eagle):
-            Log.info("Program Eagle (%s) be found and configured." % kwargs2.eagle)
+            Log.info("Program Eagle (%s) be found and configured." % 
+                     kwargs2.eagle)
             eagle_path = kwargs2.eagle
         else:
             Log.warn("Program Eagle not find, set the built-in Eagle.")
             eagle_path = module_path + '/third_party/eagle'
 
         if kwargs2.beagle and check_file_exist(kwargs2.beagle):
-            Log.info("Program beagle (%s) be found and configured." % kwargs2.beagle)
+            Log.info("Program beagle (%s) be found and configured." % 
+                     kwargs2.beagle)
             beagle_path = kwargs2.beagle
         else:
             Log.warn("Program beagle not find, set the built-in beagle.")
             beagle_path = module_path + '/third_party/beagle.28Jun21.220.jar'
 
         if kwargs2.minimac and check_file_exist(kwargs2.minimac):
-            Log.info("Program minimac (%s) be found and configured." % kwargs2.minimac)
+            Log.info("Program minimac (%s) be found and configured." % 
+                     kwargs2.minimac)
             minimac_path = kwargs2.minimac
         else:
-            Log.warn("Program minimac3/4 is not found, set the built-in Minimac3, consequently. "
-                     "The built-in Minimac3 is not recommended, please visit "
-                     "https://genome.sph.umich.edu/wiki/Minimac4 to install to "
-                     "your server and config it via <phimtools init -m /path/to/install/minimac>")
+            Log.warn("Program minimac3/4 is not found, set the built-in "
+                     "Minimac3, consequently. The built-in Minimac3 is not "
+                     "recommended, please visit "
+                     "https://genome.sph.umich.edu/wiki/Minimac4 to install "
+                     "to your server and config it via <phimtools init -m "
+                     "/path/to/install/minimac>")
             minimac_path = module_path + '/third_party/Minimac3'
 
         tool_obj = {
@@ -242,7 +261,8 @@ def PhaseImpute(kwargs):
         runfunction.imputation(kwargs, config, toolstore)
 
     elapsed_time = datetime.now() - start_time
-    Log.info("%s successfully done, %d seconds elapsed.\n" % (sys.argv[1], elapsed_time.seconds))
+    Log.info("%s successfully done, %d seconds elapsed.\n" % 
+             (sys.argv[1], elapsed_time.seconds))
 
 
 def run_eagle(param):
