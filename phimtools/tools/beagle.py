@@ -62,6 +62,7 @@ class Beagle(object):
         do.run(cmd)
         return
 
+
 class beagle_without_config(object):
     """A class for beagle 5.2 program"""
 
@@ -69,13 +70,13 @@ class beagle_without_config(object):
         """basical setting for beagle"""
 
         module_path = os.path.dirname(__file__)
-        bin_path = module_path.replace('/phimtools/tools','/phimtools/third_party')
+        bin_path = module_path.replace('/phimtools/tools', '/phimtools/third_party')
 
         if do.find_cmd("java"):
             self.java = do.find_cmd("java")
         else:
             Log.error("Couldn't find the java program.")
-            Log.error("If java had been installed, please add it to the environment.")
+            Log.error("If java had been installed, please add it to the PATH.")
             sys.exit(1)
 
         self.beagle = bin_path + '/beagle.28Jun21.220.jar'
@@ -85,6 +86,7 @@ class beagle_without_config(object):
         """Run a beagle command with the provide options.
 
         """
-        cmd = "%s -jar %s %s"%(self.java, self.beagle, " ".join(self.param_kw))
+        params = " ".join(self.param_kw)
+        cmd = "%s -jar %s %s" % (self.java, self.beagle, params)
         subprocess.run(cmd, shell=True, encoding="utf-8")
         return

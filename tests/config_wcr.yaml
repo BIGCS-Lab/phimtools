@@ -1,16 +1,16 @@
 eagle:
-    eagle: /home/wangcr/Softwares/Eagle_v2.4.1/eagle
+    eagle: /home/wangcr/Softwares/Eagle_v2.4.1/eagle_no
     genetic_map_file:
         GRCh38: /home/wangcr/Softwares/Eagle_v2.4.1/tables/genetic_map_hg38_withX.txt.gz
 
 beagle:
-    beagle: /home/wangcr/Softwares/beagle5.2/beagle.28Jun21.220.jar
+    beagle: /home/wangcr/Softwares/beagle5.2/beagle.28Jun21.220.jar_no
     genetic_map_file:
         GRCh38:
             '22': data/beagle/test.GRCh38.chr22.genetic_map.txt
 
 minimac:
-    minimac: /usr/bin/minimac4
+    minimac: /usr/bin/minimac4_no #/usr/bin/minimac4
     reference_panel:
         test_panel:
             '22':  data/beagle/ref_panel.chr22.m3vcf.gz

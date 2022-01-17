@@ -1,2 +1,4 @@
 include phimtools/third_party/eagle
 include phimtools/third_party/beagle.28Jun21.220.jar
+include phimtools/third_party/Minimac3
+include phimtools/third_party/minimac4

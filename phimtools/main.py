@@ -83,11 +83,6 @@ def check_config(config, kwargs):
         Log.error("Missing set '%s' path for phasing.\n%s\n" % (phase, conf_msg))
         sys.exit(1)
 
-    #if not file_exists(config[phase][phase]):
-    #    Log.error("%s program is not existed in %s, please check your "
-    #              "configuration.\n" % (phase, config[phase][phase]))
-    #    sys.exit(1)
-
     if "genetic_map_file" not in config[phase]:
         Log.error("Missing genetic_map_file for %s in config file.\n%s\n" % (phase, conf_msg))
         sys.exit(1)
@@ -107,10 +102,10 @@ def check_config(config, kwargs):
         Log.error("Missing set '%s' path for phasing.\n%s\n" % (impute, conf_msg))
         sys.exit(1)
 
-    if not file_exists(config[impute][impute]):
-        Log.error("%s program is not existed in %s, please check your "
-                  "configuration.\n" % (impute, config[impute][impute]))
-        sys.exit(1)
+    #if not file_exists(config[impute][impute]):
+    #    Log.error("%s program is not existed in %s, please check your "
+    #              "configuration.\n" % (impute, config[impute][impute]))
+    #    sys.exit(1)
 
     if "reference_panel" not in config[impute]:
         Log.error("Missing reference_panel for %s in config file.\n%s\n" % (impute, conf_msg))
@@ -150,11 +145,13 @@ def PhaseImpute(kwargs):
     elapsed_time = datetime.now() - start_time
     Log.info("%s successfully done, %d seconds elapsed.\n" % (sys.argv[1], elapsed_time.seconds))
 
+
 def run_eagle(param):
     """Run eagle independently"""
 
     eagle_program = Eagle_without_config(param)
     eagle_program.run()
+
 
 def run_beagle(param):
     """Run beagle independently"""
@@ -162,11 +159,13 @@ def run_beagle(param):
     beagle_program = beagle_without_config(param)
     beagle_program.run()
 
+
 def run_minimac(param):
     """Run minimac independently (if availabled)"""
 
     minimac_program = minimac_without_config(param)
     minimac_program.run()
+
 
 def main():
     """
@@ -199,6 +198,7 @@ usage: phimtools {impute, eagle, beagle, minimac} [option] ...
         else:
             Log.warn(main.__doc__)
             sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
