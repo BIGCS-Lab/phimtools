@@ -79,7 +79,7 @@ def eagle(config, input_file, output_prefix, options=None, reference_version=Non
     return  # NULL
 
 
-def eagle_region(config, input_file, output_prefix, region, reference_version=None, options=None):
+def eagle_region(config, toolstore, input_file, output_prefix, region, reference_version=None, options=None):
     """A phasing function by eagle for a specific genome region.
 
     Parameters:
@@ -123,7 +123,7 @@ def eagle_region(config, input_file, output_prefix, region, reference_version=No
     eagle_param_kw["outPrefix"] = output_prefix
     try:
         # run eagle phasing process.
-        eagle_program = Eagle(config, reference_version=reference_version)
+        eagle_program = Eagle(config, toolstore, reference_version=reference_version)
         eagle_program.run(**eagle_param_kw)
 
         # get output files by ``output_prefix``
@@ -142,7 +142,7 @@ def eagle_region(config, input_file, output_prefix, region, reference_version=No
         return input_file
 
 
-def beagle_region(config, input_file, output_prefix, region, reference_version=None, options=None):
+def beagle_region(config, toolstore, input_file, output_prefix, region, reference_version=None, options=None):
     """A phasing function by beagle for a specific genome region.
 
     Parameters:
@@ -182,7 +182,7 @@ def beagle_region(config, input_file, output_prefix, region, reference_version=N
     beagle_param_kw["out"] = output_prefix
     try:
         # run beagle phasing process.
-        beagle_program = Beagle(config, reference_version=reference_version,
+        beagle_program = Beagle(config, toolstore, reference_version=reference_version,
                                 chrom=genome_region.split(":")[0].lower().replace("chr", ""))
         beagle_program.run(**beagle_param_kw)
 

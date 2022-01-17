@@ -31,9 +31,10 @@ This command will install phimtools in your system and you can use
 
 ### Important notes before starting
 We have Eagle_v2.4.1 and beagle_5.2 built in phimtools.
-However, ensure that Java version 8 (for beagle), and minimac4 (or minimac3) softwares are installed in your analysis environment.
+However, ensure that Java version 8 (for beagle), and minimac4 (or minimac3) 
+softwares are installed in your analysis environment.
 
-Reference_panel or genetic_map files should be download from:
+Reference_panel or genetic_map files are necessities and should be download from:
 
 - Eagle 
     + download: https://alkesgroup.broadinstitute.org/Eagle/downloads/Eagle_v2.4.1.tar.gz
@@ -53,10 +54,13 @@ Reference_panel or genetic_map files should be download from:
 You can find all the submodules for phasing and imputation process by running:
 `phimtools --help`:
 
-    usage: phimtools {impute, eagle, beagle, minimac} [option] ...
+    usage: phimtools {init, impute, eagle, beagle, minimac} [option] ...
+
+    Initialization:
+        init     Configure the absolute path for third-party softwares.
 
     Pipeline:
-        impute   (Recommend) Run phasing and imputation pipeline for NGS data.
+        impute   (Recommended) Run phasing and imputation pipeline for NGS data.
 
     Third-party programs:
         eagle    Run eagle independently.
@@ -64,7 +68,31 @@ You can find all the submodules for phasing and imputation process by running:
         minimac  Run minimac independently (if availabled).
 
 
-impute pipeline is recommended by running:
+**Before running**:
+
+Eagle/beagle/minimac softwares must be pre-configured (only needs to be configured once) via:
+
+`phimtools init --help`:
+
+    usage: phimtools init [-h] [-e EAGLE] [-b BEAGLE] [-m MINIMAC]
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -e EAGLE, --eagle EAGLE
+                            Specify the absolute path of the Eagle
+      -b BEAGLE, --beagle BEAGLE
+                            Specify the absolute path of the beagle
+      -m MINIMAC, --minimac MINIMAC
+                            Specify the absolute path of the Minimac3/minimac4
+
+or run `phimtools init` to config the built-in Eagle/beagle/Minimac3 softwares, 
+which are not recommended !
+
+
+**impute pipeline**:
+
+Once initialized, recommended phasing-impute pipeline is running:
+
 `phimtools impute --help`:
 
     usage: phimtools impute [-h] -C CONFIG [-M IMPUTE_METHOD] [-P PHASE_METHOD] -I IN_VCF
@@ -98,15 +126,13 @@ impute pipeline is recommended by running:
                             regions(e.g.: chr:start-end,chr:start-end)
       --nCPU NCPU           Number of threads. [1]
 
-### Configuration file
+**Configuration file**
 
-`phimtools` needs a configuration file for setting the path of phasing
+`phimtools impute` needs a configuration file for setting the path of phasing
 program, imputation program, reference version and reference panel.
 Here\'s one of the examples for how to create a configuration file:
 [config.yaml](./tests/config.yaml).
 
-Now you can use `phimtools` as your powerful imputation pipeline, once you
-have finished the setting.
 
 ### Examples
 
@@ -150,3 +176,15 @@ phimtools impute -C config.yaml \
     --unprephase \
     --nCPU 4
 ```
+
+**third-party softwares**:
+Once initialized, you can run the third-party softwares (Eagle/beagle/minimac) independently by:
+
+`phimtools eagle`
+
+`phimtools beagle`
+
+`phimtools minimac`
+
+Now you can use `phimtools` as your powerful imputation pipeline, once you
+have finished the setting.

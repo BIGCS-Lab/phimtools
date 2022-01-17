@@ -1,10 +1,8 @@
 """The pipeline for phasing and imputation process.
-Author: Shujia Huang & Chengrui Wang
-Date: 2019-2022
+Author: Shujia Huang
+Date: 2019-05-22
 """
-import os
 import sys
-import stat
 import argparse
 import yaml
 
@@ -13,15 +11,10 @@ from datetime import datetime
 from phimtools.log import Log
 from phimtools.tools.check import check_vcf_format
 from phimtools.utils import file_exists
-from phimtools.launch import do
 from phimtools.launch import runfunction
 from phimtools.tools.eagle import Eagle_without_config
 from phimtools.tools.beagle import beagle_without_config
 from phimtools.tools.minimac import minimac_without_config
-
-USER_HOME = os.path.expanduser("~")
-PHIMTOOLS_DIR = '.phimtools'
-PHIMTOOLS_TOOLS = 'thirdparty.yaml'
 
 VERSION = "1.1.0"
 LONG_DESC = """
@@ -76,26 +69,6 @@ def parse_commandline_args(args):
     return parser.parse_args(args)
 
 
-def init_commandline_args(args):
-    """Parse input commandline arguments, handling multiple cases."""
-
-    desc = "Initialization - Configure the absolute path for third-party softwares."
-    parser = argparse.ArgumentParser(description=desc)
-    subparser = parser.add_subparsers(help="phimtools initialization commands")
-
-    # For third-party softwares configuration
-    init_parser = subparser.add_parser("init", help="Third-party softwares configuration.")
-
-    init_parser.add_argument("-e", "--eagle", dest="eagle", 
-                             help="Specify the absolute path of the Eagle")
-    init_parser.add_argument("-b", "--beagle", dest="beagle", 
-                             help="Specify the absolute path of the beagle")
-    init_parser.add_argument("-m", "--minimac", dest="minimac",
-                             help="Specify the absolute path of the Minimac3/minimac4")
-
-    return parser.parse_args(args)
-
-
 def check_config(config, kwargs):
     """Check the most important parameters is setted or not."""
 
@@ -106,9 +79,9 @@ def check_config(config, kwargs):
         Log.error("Missing '%s' in config file.\n%s\n" % (phase, conf_msg))
         sys.exit(1)
 
-    #if phase not in config[phase]:
-    #    Log.error("Missing set '%s' path for phasing.\n%s\n" % (phase, conf_msg))
-    #    sys.exit(1)
+    if phase not in config[phase]:
+        Log.error("Missing set '%s' path for phasing.\n%s\n" % (phase, conf_msg))
+        sys.exit(1)
 
     if "genetic_map_file" not in config[phase]:
         Log.error("Missing genetic_map_file for %s in config file.\n%s\n" % (phase, conf_msg))
@@ -125,8 +98,13 @@ def check_config(config, kwargs):
         Log.error("Missing '%s' in config file.\n%s\n" % (impute, conf_msg))
         sys.exit(1)
 
-    #if impute not in config[impute]:
-    #    Log.error("Missing set '%s' path for phasing.\n%s\n" % (impute, conf_msg))
+    if impute not in config[impute]:
+        Log.error("Missing set '%s' path for phasing.\n%s\n" % (impute, conf_msg))
+        sys.exit(1)
+
+    #if not file_exists(config[impute][impute]):
+    #    Log.error("%s program is not existed in %s, please check your "
+    #              "configuration.\n" % (impute, config[impute][impute]))
     #    sys.exit(1)
 
     if "reference_panel" not in config[impute]:
@@ -143,103 +121,26 @@ def check_config(config, kwargs):
         if not file_exists(v):
             Log.error("%s not exists, please check the configuration file.\n" % v)
             sys.exit(1)
+
     return
-
-
-def check_file_exist(file_path):
-    if os.path.exists(file_path):
-        return(file_path)
-    else:
-        Log.warn("%s file is missing." % file_path)
-        return
-
-
-def Initialization(kwargs2):
-    """"""
-
-    p = os.path.join(USER_HOME, PHIMTOOLS_DIR)
-    if not os.path.isdir(p):
-        os.mkdir(p, stat.S_IRWXU)  # 0700
-
-    p = os.path.join(p, PHIMTOOLS_TOOLS)
-
-    module_path = os.path.dirname(__file__)
-    os.chmod(module_path + '/third_party/eagle', stat.S_IXUSR)  # +x
-    os.chmod(module_path + '/third_party/Minimac3', stat.S_IXUSR)  # +x
-
-    with open(p, 'w') as toolstore:
-        if kwargs2.eagle and check_file_exist(kwargs2.eagle):
-            Log.info("Program Eagle (%s) be found and configured." % kwargs2.eagle)
-            eagle_path = kwargs2.eagle
-        else:
-            Log.warn("Program Eagle not find, set the built-in Eagle.")
-            eagle_path = module_path + '/third_party/eagle'
-
-        if kwargs2.beagle and check_file_exist(kwargs2.beagle):
-            Log.info("Program beagle (%s) be found and configured." % kwargs2.beagle)
-            beagle_path = kwargs2.beagle
-        else:
-            Log.warn("Program beagle not find, set the built-in beagle.")
-            beagle_path = module_path + '/third_party/beagle.28Jun21.220.jar'
-
-        if kwargs2.minimac and check_file_exist(kwargs2.minimac):
-            Log.info("Program minimac (%s) be found and configured." % kwargs2.minimac)
-            minimac_path = kwargs2.minimac
-        else:
-            Log.warn("Program minimac3/4 is not found, set the built-in Minimac3, consequently. "
-                     "The built-in Minimac3 is not recommended, please visit "
-                     "https://genome.sph.umich.edu/wiki/Minimac4 to install to "
-                     "your server and config it via <phimtools init -m /path/to/install/minimac>")
-            minimac_path = module_path + '/third_party/Minimac3'
-
-        tool_obj = {
-            "eagle": eagle_path,
-            "beagle": beagle_path,
-            "minimac": minimac_path
-        }
-
-        yaml.dump(tool_obj, toolstore)
-
-    os.chmod(p, stat.S_IRUSR + stat.S_IWUSR)  # 0600
-    Log.info("Eagle/beagle/minimac softwares are configured done!")
-
-
-def check_yaml():
-    yaml_file = os.path.join(USER_HOME, PHIMTOOLS_DIR, PHIMTOOLS_TOOLS)
-    if not os.path.isfile(yaml_file):
-        Log.error("Please run <phimtools init> to config "
-                  "Eagle/beagle/minimac softwares firstly.")
-        sys.exit(1)
-    else:
-        with open(yaml_file, 'r') as I:
-            toolstore = yaml.load(I, Loader=yaml.FullLoader)
-            for p in toolstore.keys():
-                if not os.path.isfile(toolstore[p]):
-                    Log.error("Program (%s) is not existed." % toolstore[p])
-                    Log.error("Please run <phimtools init> to re-config "
-                              "Eagle/beagle/minimac softwares.")
-                    sys.exit(1)
-            return toolstore
 
 
 def PhaseImpute(kwargs):
     """Phase and impute function"""
 
     start_time = datetime.now()
-    toolstore = check_yaml()
-
     if "config" not in kwargs:
         Log.error("missing YAML configuration files by -C (--conf).\n")
         sys.exit(1)
 
     with open(kwargs.config) as C:
-        config = yaml.load(C, Loader=yaml.FullLoader)
+        config = yaml.safe_load(C)
 
     check_config(config, kwargs)
 
     if "impute" in sys.argv[1:] and kwargs:
         check_vcf_format(kwargs.in_vcf)
-        runfunction.imputation(kwargs, config, toolstore)
+        runfunction.imputation(kwargs, config)
 
     elapsed_time = datetime.now() - start_time
     Log.info("%s successfully done, %d seconds elapsed.\n" % (sys.argv[1], elapsed_time.seconds))
@@ -248,36 +149,30 @@ def PhaseImpute(kwargs):
 def run_eagle(param):
     """Run eagle independently"""
 
-    toolstore = check_yaml()
-    eagle_program = Eagle_without_config(toolstore, param)
+    eagle_program = Eagle_without_config(param)
     eagle_program.run()
 
 
 def run_beagle(param):
     """Run beagle independently"""
 
-    toolstore = check_yaml()
-    beagle_program = beagle_without_config(toolstore, param)
+    beagle_program = beagle_without_config(param)
     beagle_program.run()
 
 
 def run_minimac(param):
     """Run minimac independently (if availabled)"""
 
-    toolstore = check_yaml()
-    minimac_program = minimac_without_config(toolstore, param)
+    minimac_program = minimac_without_config(param)
     minimac_program.run()
 
 
 def main():
     """
-usage: phimtools {init, impute, eagle, beagle, minimac} [option] ...
-
-    Initialization:
-        init     Configure the absolute path for third-party softwares.
+usage: phimtools {impute, eagle, beagle, minimac} [option] ...
 
     Pipeline:
-        impute   (Recommended) Run phasing and imputation pipeline for NGS data.
+        impute   (Recommend) Run phasing and imputation pipeline for NGS data.
             
     Third-party programs:
         eagle    Run eagle independently.
@@ -287,14 +182,11 @@ usage: phimtools {init, impute, eagle, beagle, minimac} [option] ...
 
     sys.stderr.write("%s\n" % LONG_DESC)
 
-    if len(sys.argv) == 1:
+    if len(sys.argv)==1:
         Log.warn(main.__doc__)
         sys.exit(1)
     else:
-        if sys.argv[1] == "init":
-            kwargs2 = init_commandline_args(sys.argv[1:])
-            Initialization(kwargs2)
-        elif sys.argv[1] == "impute":
+        if sys.argv[1] == "impute":
             kwargs = parse_commandline_args(sys.argv[1:])
             PhaseImpute(kwargs)
         elif sys.argv[1] == "eagle":
