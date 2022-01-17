@@ -3,6 +3,7 @@
 Author: Shujia Huang
 Date: 2019-05-22
 """
+import subprocess
 from phimtools.log import Log
 from phimtools.launch import do
 
@@ -10,13 +11,14 @@ from phimtools.launch import do
 class Minimac(object):
     """A class for Minimac3/Minimac4 program"""
 
-    def __init__(self, config, reference_panel=None):
+    def __init__(self, config, toolstore, reference_panel):
         """basical setting for Minimac"""
 
         if reference_panel is None:
             return
 
-        self.minimac = config["minimac"]["minimac"]
+        self.minimac = toolstore["minimac"]
+
         self.ref_panel = config["minimac"]["reference_panel"][reference_panel]
 
     def help(self):
@@ -38,3 +40,20 @@ class Minimac(object):
                        ["--%s %s" % (k, v) for k, v in kwargs.items()])
         do.run(cmd)
         return True
+
+
+class minimac_without_config(object):
+    """A class for minimac program"""
+
+    def __init__(self, toolstore, param_kw=["--help"]):
+        """basical setting for minimac"""
+
+        self.minimac = toolstore["minimac"]
+        self.param_kw = param_kw
+
+    def run(self):
+        """Run a minimac command with the provide options."""
+
+        cmd = self.minimac + ' %s' % (" ".join(self.param_kw))
+        subprocess.run(cmd, shell=True, encoding="utf-8")
+        return

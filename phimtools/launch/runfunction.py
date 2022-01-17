@@ -12,7 +12,7 @@ from phimtools.modules import get_chromlist
 from phimtools.log import Log
 
 
-def imputation(kwargs, config):
+def imputation(kwargs, config, toolstore):
     """Run imputation for VCF files
     """
     if kwargs.impute_method not in ["minimac"]:
@@ -48,17 +48,20 @@ def imputation(kwargs, config):
         sub_outprefix = "%s.%s" % (kwargs.out_prefix, reg.replace(":", "-"))
         phased_file = kwargs.in_vcf
         if not kwargs.is_unprephase:
+            print(kwargs)
             # pre-phasing
             Log.info("Performing pre-phasing process before imputation.")
             if kwargs.phase_method == "eagle":
-                phased_file = eagle_region(config,
+                phased_file = eagle_region(config, 
+                                           toolstore,
                                            kwargs.in_vcf,
                                            kwargs.out_prefix + ".phased",
                                            reg,
                                            reference_version=kwargs.refbuild,
                                            options=[("numThreads", kwargs.nCPU)])
             elif kwargs.phase_method == "beagle":
-                phased_file = beagle_region(config,
+                phased_file = beagle_region(config, 
+                                            toolstore,
                                             kwargs.in_vcf,
                                             kwargs.out_prefix + ".phased",
                                             reg,
@@ -72,7 +75,8 @@ def imputation(kwargs, config):
                 continue
 
         if kwargs.impute_method == "minimac":
-            sub_out_impute_files = minimac(config,
+            sub_out_impute_files = minimac(config, 
+                                           toolstore,
                                            phased_file,
                                            sub_outprefix,
                                            reg,

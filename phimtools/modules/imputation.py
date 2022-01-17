@@ -7,7 +7,7 @@ from phimtools.tools.minimac import Minimac
 from phimtools.log import Log
 
 
-def minimac(config, input_file, output_prefix, region, reference_panel=None, options=None):
+def minimac(config, toolstore, input_file, output_prefix, region, reference_panel=None, options=None):
     """Impute for a single chromosome.
 
     Parameters:
@@ -43,7 +43,7 @@ def minimac(config, input_file, output_prefix, region, reference_panel=None, opt
         minimac_param_kw["start"] = start
         minimac_param_kw["end"] = end
 
-    minimac = Minimac(config, reference_panel=reference_panel)
+    minimac = Minimac(config, toolstore, reference_panel=reference_panel)
 
     try:
         is_good = minimac.run(**minimac_param_kw)
