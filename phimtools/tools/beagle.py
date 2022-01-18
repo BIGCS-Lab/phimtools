@@ -4,8 +4,6 @@ Author: Chengrui Wang
 Date: 2022-01-07
 """
 import os
-import sys
-import subprocess
 from phimtools.log import Log
 from phimtools.launch import do
 
@@ -49,29 +47,4 @@ class Beagle(object):
             cmd = " ".join([self.java, '-jar', self.beagle] + 
                            ["%s=%s" % (k, v) for k, v in kwargs.items()])
         do.run(cmd)
-        return
-
-
-class Beagle_without_config(object):
-    """A class for beagle 5.2 program"""
-
-    def __init__(self, toolstore, param_kw=[]):
-        """basical setting for beagle"""
-
-        if do.find_cmd("java"):
-            self.java = do.find_cmd("java")
-        else:
-            Log.error("Couldn't find the java program.")
-            Log.error("If java had been installed, please add it to the PATH.")
-            sys.exit(1)
-
-        self.beagle = toolstore["beagle"]
-        self.param_kw = param_kw
-
-    def run(self):
-        """Run a beagle command with the provide options."""
-
-        params = " ".join(self.param_kw)
-        cmd = "%s -jar %s %s" % (self.java, self.beagle, params)
-        subprocess.run(cmd, shell=True, encoding="utf-8")
         return
