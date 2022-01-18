@@ -5,7 +5,6 @@ Date: 2019-05-20
 """
 import os
 import sys
-import subprocess
 from phimtools.log import Log
 from phimtools.launch import do
 
@@ -39,21 +38,4 @@ class Eagle(object):
                        ["--geneticMapFile=%s" % self.genetic_map_file] +
                        ["--%s=%s" % (k, v) for k, v in kwargs.items()])
         do.run(cmd)
-        return
-
-
-class Eagle_without_config(object):
-    """A class for Eagle (Version 2.4.1) program."""
-
-    def __init__(self, toolstore, param_kw=["--help"]):
-        """basical setting for Eagle"""
-
-        self.eagle = toolstore["eagle"]
-        self.param_kw = param_kw
-
-    def run(self):
-        """Run a Eagle command with the provide options."""
-
-        cmd = self.eagle + ' %s' % (" ".join(self.param_kw))
-        subprocess.run(cmd, shell=True, encoding="utf-8")
         return

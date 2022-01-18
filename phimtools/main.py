@@ -14,9 +14,7 @@ from phimtools.log import Log
 from phimtools.tools.check import check_vcf_format
 from phimtools.utils import file_exists
 from phimtools.launch import runfunction
-from phimtools.tools.eagle import Eagle_without_config
-from phimtools.tools.beagle import Beagle_without_config
-from phimtools.tools.minimac import Minimac_without_config
+from phimtools.tools.thirdparty import Thirdparty
 
 USER_HOME = os.path.expanduser("~")
 PHIMTOOLS_DIR = '.phimtools'
@@ -265,28 +263,12 @@ def phaseImpute(kwargs):
              (sys.argv[1], elapsed_time.seconds))
 
 
-def run_eagle(param):
-    """Run eagle independently"""
+def run_thirdparty(param):
+    """Run eagle/beagle/minimac independently"""
 
     toolstore = check_yaml()
-    eagle_program = Eagle_without_config(toolstore, param)
+    eagle_program = Thirdparty(toolstore, param)
     eagle_program.run()
-
-
-def run_beagle(param):
-    """Run beagle independently"""
-
-    toolstore = check_yaml()
-    beagle_program = Beagle_without_config(toolstore, param)
-    beagle_program.run()
-
-
-def run_minimac(param):
-    """Run minimac independently (if availabled)"""
-
-    toolstore = check_yaml()
-    minimac_program = Minimac_without_config(toolstore, param)
-    minimac_program.run()
 
 
 def main():
@@ -317,12 +299,8 @@ usage: phimtools {init, impute, eagle, beagle, minimac} [option] ...
         elif sys.argv[1] == "impute":
             kwargs = parse_commandline_args(sys.argv[1:])
             phaseImpute(kwargs)
-        elif sys.argv[1] == "eagle":
-            run_eagle(sys.argv[2:])
-        elif sys.argv[1] == "beagle":
-            run_beagle(sys.argv[2:])
-        elif sys.argv[1] == "minimac":
-            run_minimac(sys.argv[2:])
+        elif sys.argv[1] in ["eagle", "beagle", "minimac"]:
+            run_thirdparty(sys.argv[1:])
         else:
             Log.warn(main.__doc__)
             sys.exit(1)
