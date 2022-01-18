@@ -44,11 +44,9 @@ class Beagle(object):
         if self.genetic_map_file:
             cmd = " ".join([self.java, '-jar', self.beagle] + 
                            ["map=%s" % self.genetic_map_file] + 
-                           ["impute=false"] + 
                            ["%s=%s" % (k, v) for k, v in kwargs.items()])
         else:
             cmd = " ".join([self.java, '-jar', self.beagle] + 
-                           ["impute=false"] + 
                            ["%s=%s" % (k, v) for k, v in kwargs.items()])
         do.run(cmd)
         return
