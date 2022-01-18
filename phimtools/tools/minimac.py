@@ -3,8 +3,6 @@
 Author: Shujia Huang
 Date: 2019-05-22
 """
-import os
-import sys
 from phimtools.log import Log
 from phimtools.launch import do
 
