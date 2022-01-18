@@ -15,8 +15,8 @@ from phimtools.tools.check import check_vcf_format
 from phimtools.utils import file_exists
 from phimtools.launch import runfunction
 from phimtools.tools.eagle import Eagle_without_config
-from phimtools.tools.beagle import beagle_without_config
-from phimtools.tools.minimac import minimac_without_config
+from phimtools.tools.beagle import Beagle_without_config
+from phimtools.tools.minimac import Minimac_without_config
 
 USER_HOME = os.path.expanduser("~")
 PHIMTOOLS_DIR = '.phimtools'
@@ -123,16 +123,15 @@ def check_config(config, kwargs):
         sys.exit(1)
 
     if "genetic_map_file" not in config[phase]:
-        Log.error("Missing genetic_map_file for %s in config file.\n%s\n" % 
-                  (phase, conf_msg))
+        Log.error("Missing genetic_map_file for "
+                  "%s in config file.\n%s\n" % (phase, conf_msg))
         sys.exit(1)
 
     if kwargs.refbuild not in config[phase]["genetic_map_file"]:
         k = ",".join(config[phase]["genetic_map_file"].keys())
-        Log.error("%s is not been setted for %s in config file. "
-                  "The key of genetic_map_file "
-                  "can only be:\n%s\n%s\n" % 
-                  (kwargs.refbuild, phase, k, conf_msg))
+        Log.error("%s is not been setted for %s in config file."
+                  " The key of genetic_map_file can "
+                  "only be:\n%s\n%s\n" % (kwargs.refbuild, phase, k, conf_msg))
         sys.exit(1)
 
     impute = kwargs.impute_method
@@ -168,8 +167,8 @@ def check_file_exist(file_path):
         return
 
 
-def Initialization(kwargs2):
-    """"""
+def initialization(kwargs2):
+    """initialize Eagle/beagle/minimac softwares path"""
 
     p = os.path.join(USER_HOME, PHIMTOOLS_DIR)
     if not os.path.isdir(p):
@@ -242,7 +241,7 @@ def check_yaml():
             return toolstore
 
 
-def PhaseImpute(kwargs):
+def phaseImpute(kwargs):
     """Phase and impute function"""
 
     start_time = datetime.now()
@@ -278,7 +277,7 @@ def run_beagle(param):
     """Run beagle independently"""
 
     toolstore = check_yaml()
-    beagle_program = beagle_without_config(toolstore, param)
+    beagle_program = Beagle_without_config(toolstore, param)
     beagle_program.run()
 
 
@@ -286,7 +285,7 @@ def run_minimac(param):
     """Run minimac independently (if availabled)"""
 
     toolstore = check_yaml()
-    minimac_program = minimac_without_config(toolstore, param)
+    minimac_program = Minimac_without_config(toolstore, param)
     minimac_program.run()
 
 
@@ -314,10 +313,10 @@ usage: phimtools {init, impute, eagle, beagle, minimac} [option] ...
     else:
         if sys.argv[1] == "init":
             kwargs2 = init_commandline_args(sys.argv[1:])
-            Initialization(kwargs2)
+            initialization(kwargs2)
         elif sys.argv[1] == "impute":
             kwargs = parse_commandline_args(sys.argv[1:])
-            PhaseImpute(kwargs)
+            phaseImpute(kwargs)
         elif sys.argv[1] == "eagle":
             run_eagle(sys.argv[2:])
         elif sys.argv[1] == "beagle":

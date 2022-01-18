@@ -36,13 +36,14 @@ class Minimac(object):
             Log.error("Missing 'chr' for reference panel in the Minimac command")
             return False
 
-        cmd = " ".join([self.minimac] + ["--refHaps %s" % self.ref_panel[kwargs["chr"]]] +
+        cmd = " ".join([self.minimac] + 
+                       ["--refHaps %s" % self.ref_panel[kwargs["chr"]]] +
                        ["--%s %s" % (k, v) for k, v in kwargs.items()])
         do.run(cmd)
         return True
 
 
-class minimac_without_config(object):
+class Minimac_without_config(object):
     """A class for minimac program"""
 
     def __init__(self, toolstore, param_kw=["--help"]):
