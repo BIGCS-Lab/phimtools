@@ -178,8 +178,6 @@ def Initialization(kwargs2):
     p = os.path.join(p, PHIMTOOLS_TOOLS)
 
     module_path = os.path.dirname(__file__)
-    os.chmod(module_path + '/third_party/eagle', stat.S_IXUSR)  # +x
-    os.chmod(module_path + '/third_party/Minimac3', stat.S_IXUSR)  # +x
 
     with open(p, 'w') as toolstore:
         if kwargs2.eagle and check_file_exist(kwargs2.eagle):
@@ -210,6 +208,9 @@ def Initialization(kwargs2):
                      "to your server and config it via <phimtools init -m "
                      "/path/to/install/minimac>")
             minimac_path = module_path + '/third_party/Minimac3'
+        
+        os.chmod(eagle_path, stat.S_IXUSR)  # +x
+        os.chmod(minimac_path, stat.S_IXUSR)  # +x
 
         tool_obj = {
             "eagle": eagle_path,
@@ -230,8 +231,8 @@ def check_yaml():
                   "Eagle/beagle/minimac softwares firstly.")
         sys.exit(1)
     else:
-        with open(yaml_file, 'r') as I:
-            toolstore = yaml.load(I, Loader=yaml.FullLoader)
+        with open(yaml_file, 'r') as ToolsPath:
+            toolstore = yaml.load(ToolsPath, Loader=yaml.FullLoader)
             for p in toolstore.keys():
                 if not os.path.isfile(toolstore[p]):
                     Log.error("Program (%s) is not existed." % toolstore[p])
