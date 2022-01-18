@@ -27,7 +27,7 @@ class Beagle(object):
             self.genetic_map_file = config["beagle"]["genetic_map_file"][reference_version][chrom]
         else:
             Log.warn("beagle plink.chr#.GRCh3#.map is missing.\n")
-            Log.warn("Without map=<PLINK map file with cM units> parameter will be performed.\n")
+            Log.warn("Without map=<...> parameter will be performed.\n")
             self.genetic_map_file = None
 
     def help(self):
@@ -54,7 +54,7 @@ class Beagle(object):
         return
 
 
-class beagle_without_config(object):
+class Beagle_without_config(object):
     """A class for beagle 5.2 program"""
 
     def __init__(self, toolstore, param_kw=[]):

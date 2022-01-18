@@ -35,7 +35,8 @@ class Eagle(object):
             ``kwargs``: A dict like
                 key world parameter for Eagle
         """
-        cmd = " ".join([self.eagle] + ["--geneticMapFile=%s" % self.genetic_map_file] +
+        cmd = " ".join([self.eagle] + 
+                       ["--geneticMapFile=%s" % self.genetic_map_file] +
                        ["--%s=%s" % (k, v) for k, v in kwargs.items()])
         do.run(cmd)
         return

@@ -249,4 +249,3 @@ def merge_files(temp_file_names, final_file_name, is_del_raw_file=False):
         output_file.close()
 
     return
-
