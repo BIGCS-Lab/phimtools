@@ -5,11 +5,13 @@ eagle:
 beagle:
     genetic_map_file:
         GRCh38:
+            '21': data/beagle/test.GRCh38.chr21.genetic_map.txt
             '22': data/beagle/test.GRCh38.chr22.genetic_map.txt
 
 minimac:
     reference_panel:
         test_panel:
+            '21':  data/beagle/ref_panel.chr21.m3vcf.gz
             '22':  data/beagle/ref_panel.chr22.m3vcf.gz
 
         1000G_P3_GRCh37:  # This is an example
