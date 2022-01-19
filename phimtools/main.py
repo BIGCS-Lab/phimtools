@@ -206,8 +206,10 @@ def initialization(kwargs2):
                      "/path/to/install/minimac>")
             minimac_path = module_path + '/third_party/Minimac3'
         
-        os.chmod(eagle_path, stat.S_IXUSR)  # +x
-        os.chmod(minimac_path, stat.S_IXUSR)  # +x
+        if not os.access(eagle_path, os.X_OK):
+            os.chmod(eagle_path, stat.S_IXUSR)  # +x
+        if not os.access(minimac_path, os.X_OK):
+            os.chmod(minimac_path, stat.S_IXUSR)  # +x
 
         tool_obj = {
             "eagle": eagle_path,
