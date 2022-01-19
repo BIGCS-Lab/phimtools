@@ -48,7 +48,6 @@ def imputation(kwargs, config, toolstore):
         sub_outprefix = "%s.%s" % (kwargs.out_prefix, reg.replace(":", "-"))
         phased_file = kwargs.in_vcf
         if not kwargs.is_unprephase:
-            print(kwargs)
             # pre-phasing
             Log.info("Performing pre-phasing process before imputation.")
             if kwargs.phase_method == "eagle":
