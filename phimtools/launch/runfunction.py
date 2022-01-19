@@ -9,6 +9,7 @@ from phimtools.modules.phasing import eagle_region, beagle_region
 from phimtools.modules.imputation import minimac
 from phimtools.utils import merge_files
 from phimtools.modules import get_chromlist
+from phimtools.modules import split2chrom
 from phimtools.log import Log
 
 
@@ -72,6 +73,9 @@ def imputation(kwargs, config, toolstore):
 
             if not phased_file:
                 continue
+        else:
+            # unprephase need to split to chrom
+            phased_file = split2chrom(kwargs.in_vcf, chr_id, kwargs.out_prefix)
 
         if kwargs.impute_method == "minimac":
             sub_out_impute_files = minimac(config, 
