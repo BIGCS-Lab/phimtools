@@ -178,25 +178,22 @@ def initialization(kwargs2):
 
     with open(p, 'w') as toolstore:
         if kwargs2.eagle and check_file_exist(kwargs2.eagle):
-            Log.info("Program Eagle (%s) be found and configured." % 
-                     kwargs2.eagle)
-            eagle_path = kwargs2.eagle
+            Log.info("Program Eagle (%s) be found and configured." % os.path.abspath(kwargs2.eagle))
+            eagle_path = os.path.abspath(kwargs2.eagle)
         else:
             Log.warn("Program Eagle not find, set the built-in Eagle.")
             eagle_path = module_path + '/third_party/eagle'
 
         if kwargs2.beagle and check_file_exist(kwargs2.beagle):
-            Log.info("Program beagle (%s) be found and configured." % 
-                     kwargs2.beagle)
-            beagle_path = kwargs2.beagle
+            Log.info("Program beagle (%s) be found and configured." % os.path.abspath(kwargs2.beagle))
+            beagle_path = os.path.abspath(kwargs2.beagle)
         else:
             Log.warn("Program beagle not find, set the built-in beagle.")
             beagle_path = module_path + '/third_party/beagle.28Jun21.220.jar'
 
         if kwargs2.minimac and check_file_exist(kwargs2.minimac):
-            Log.info("Program minimac (%s) be found and configured." % 
-                     kwargs2.minimac)
-            minimac_path = kwargs2.minimac
+            Log.info("Program minimac (%s) be found and configured." % os.path.abspath(kwargs2.minimac))
+            minimac_path = os.path.abspath(kwargs2.minimac)
         else:
             Log.warn("Program minimac3/4 is not found, set the built-in "
                      "Minimac3, consequently. The built-in Minimac3 is not "
@@ -207,9 +204,9 @@ def initialization(kwargs2):
             minimac_path = module_path + '/third_party/Minimac3'
         
         if not os.access(eagle_path, os.X_OK):
-            os.chmod(eagle_path, stat.S_IXUSR)  # +x
+            os.chmod(eagle_path, stat.S_IRUSR + stat.S_IXUSR)  # 0500
         if not os.access(minimac_path, os.X_OK):
-            os.chmod(minimac_path, stat.S_IXUSR)  # +x
+            os.chmod(minimac_path, stat.S_IRUSR + stat.S_IXUSR)  # 0500
 
         tool_obj = {
             "eagle": eagle_path,

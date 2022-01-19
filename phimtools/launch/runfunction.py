@@ -93,9 +93,8 @@ def imputation(kwargs, config, toolstore):
             if sub_out_impute_files:
                 out_impute_files.append(sub_out_impute_files)
 
+    '''
     # Todo: Merge different kinds of output files
-    print(out_phase_files)
-    print(out_impute_files)
     if not kwargs.is_unprephase:
         final_out_phase_file = "%s.final.phased.vcf.gz" % kwargs.out_prefix
     else:
@@ -105,16 +104,17 @@ def imputation(kwargs, config, toolstore):
     if out_phase_files:
         # merge the output phased VCF files
         merge_files([f for f in out_phase_files], final_out_phase_file,
-                    is_del_raw_file=True)
+                    is_del_raw_file=False)
     else:
         Log.warn("Nothing output")
 
     if out_impute_files:
         # merge the output imputed VCF files
         merge_files([f[0] for f in out_impute_files], final_out_impute_file,
-                    is_del_raw_file=True)
+                    is_del_raw_file=False)
 
         return final_out_impute_file
     else:
         Log.warn("Nothing output")
         return
+    '''
