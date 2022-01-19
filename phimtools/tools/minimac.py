@@ -34,8 +34,13 @@ class Minimac(object):
             Log.error("Missing 'chr' for reference panel in the Minimac command")
             return False
 
+        chrom = kwargs["chr"]
+        # minimac4: Non-zero value of "--start" required parameter if using "--chr" parameter.
+        if "start" not in kwargs:
+            del kwargs['chr'] 
+
         cmd = " ".join([self.minimac] + 
-                       ["--refHaps %s" % self.ref_panel[kwargs["chr"]]] +
+                       ["--refHaps %s" % self.ref_panel[chrom]] +
                        ["--%s %s" % (k, v) for k, v in kwargs.items()])
         do.run(cmd)
         return True
