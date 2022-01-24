@@ -9,6 +9,7 @@ from phimtools.modules.phasing import eagle_region, beagle_region
 from phimtools.modules.imputation import minimac
 from phimtools.utils import merge_files
 from phimtools.modules import get_chromlist
+from phimtools.modules import split2chrom
 from phimtools.log import Log
 
 
@@ -34,6 +35,7 @@ def imputation(kwargs, config, toolstore):
     else:
         regions = kwargs.regions.split(",")
 
+    out_phase_files = []
     out_impute_files = []
     # perform for each chromosome or genome region
     for reg in regions:
@@ -54,7 +56,7 @@ def imputation(kwargs, config, toolstore):
                 phased_file = eagle_region(config, 
                                            toolstore,
                                            kwargs.in_vcf,
-                                           kwargs.out_prefix + ".phased",
+                                           kwargs.out_prefix + ".%s.phased" % chr_id,
                                            reg,
                                            reference_version=kwargs.refbuild,
                                            options=[("numThreads", kwargs.nCPU)])
@@ -62,7 +64,7 @@ def imputation(kwargs, config, toolstore):
                 phased_file = beagle_region(config, 
                                             toolstore,
                                             kwargs.in_vcf,
-                                            kwargs.out_prefix + ".phased",
+                                            kwargs.out_prefix + ".%s.phased" % chr_id,
                                             reg,
                                             reference_version=kwargs.refbuild,
                                             options=[("nthreads", kwargs.nCPU)])
@@ -72,6 +74,13 @@ def imputation(kwargs, config, toolstore):
 
             if not phased_file:
                 continue
+        else:
+            # unprephase need to split to chrom
+            phased_out_prefix = kwargs.out_prefix + ".%s.unphased" % chr_id
+            phased_file = split2chrom(kwargs.in_vcf, chr_id, phased_out_prefix)
+        
+        if phased_file:
+            out_phase_files.append(phased_file)
 
         if kwargs.impute_method == "minimac":
             sub_out_impute_files = minimac(config, 
@@ -85,11 +94,23 @@ def imputation(kwargs, config, toolstore):
                 out_impute_files.append(sub_out_impute_files)
 
     # Todo: Merge different kinds of output files
-    final_out_impute_file = "%s.final.vcf.gz" % kwargs.out_prefix
+    if not kwargs.is_unprephase:
+        final_out_phase_file = "%s.final.phased.vcf.gz" % kwargs.out_prefix
+    else:
+        final_out_phase_file = "%s.final.unphased.vcf.gz" % kwargs.out_prefix
+    final_out_impute_file = "%s.final.impute.vcf.gz" % kwargs.out_prefix
+
+    if out_phase_files:
+        # merge the output phased VCF files
+        merge_files([f for f in out_phase_files], final_out_phase_file,
+                    is_del_raw_file=False)
+    else:
+        Log.warn("Nothing output")
+
     if out_impute_files:
         # merge the output imputed VCF files
         merge_files([f[0] for f in out_impute_files], final_out_impute_file,
-                    is_del_raw_file=True)
+                    is_del_raw_file=False)
 
         return final_out_impute_file
     else:
