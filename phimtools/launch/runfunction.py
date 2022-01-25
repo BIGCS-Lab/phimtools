@@ -16,7 +16,7 @@ from phimtools.log import Log
 def imputation(kwargs, config, toolstore):
     """Run imputation for VCF files
     """
-    if kwargs.impute_method not in ["minimac"]:
+    if kwargs.impute_method not in ["minimac", "beagle"]:
         Log.error("%s is not one of the imputation methods in "
                   "phimtools pipeline." % kwargs.impute_method)
         sys.exit(1)
@@ -49,6 +49,10 @@ def imputation(kwargs, config, toolstore):
 
         sub_outprefix = "%s.%s" % (kwargs.out_prefix, reg.replace(":", "-"))
         phased_file = kwargs.in_vcf
+
+        if kwargs.impute_method == "beagle" and kwargs.phase_method == "beagle":
+            kwargs.is_unprephase = True
+
         if not kwargs.is_unprephase:
             # pre-phasing
             Log.info("Performing pre-phasing process before imputation.")
@@ -92,6 +96,17 @@ def imputation(kwargs, config, toolstore):
                                            options=[("cpus", kwargs.nCPU)])
             if sub_out_impute_files:
                 out_impute_files.append(sub_out_impute_files)
+        elif kwargs.impute_method == "beagle":
+            sub_out_impute_files = beagle_region(config, 
+                                                 toolstore,
+                                                 phased_file,
+                                                 sub_outprefix,
+                                                 reg,
+                                                 reference_version=kwargs.refbuild,
+                                                 reference_panel=kwargs.refpanel,
+                                                 options=[("nthreads", kwargs.nCPU)])
+            if sub_out_impute_files:
+                out_impute_files.append([sub_out_impute_files])
 
     # Todo: Merge different kinds of output files
     if not kwargs.is_unprephase:

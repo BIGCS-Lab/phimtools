@@ -103,27 +103,22 @@ Once initialized, recommended phasing-impute pipeline is running:
     optional arguments:
       -h, --help            show this help message and exit
       -C CONFIG, --conf CONFIG
-                            YAML configuration file specifying details information
-                            for imputation
+                            YAML configuration file specifying details information for imputation
       -M IMPUTE_METHOD, --methods IMPUTE_METHOD
-                            Tool for imputation. [minimac]
+                            Tools (minimac, beagle) for imputation. [minimac]
       -P PHASE_METHOD, --prephase-method PHASE_METHOD
-                            Tool for pre-phase before imputation. [eagle, beagle]
+                            Tools (eagle, beagle) for pre-phase before imputation. [beagle]
       -I IN_VCF, --input IN_VCF
                             Input one VCF file to analyze. Required
       -O OUT_PREFIX, --outprefix OUT_PREFIX
                             Prefix for output files. Required
       --refpanel-version REFPANEL
-                            The version of haplotype data for reference panel.
-                            Required
+                            The version of haplotype data for reference panel. Required
       --reference-build REFBUILD
-                            The build version of reference, e.g: GRCh37, GRCh38
-      --unprephase          Do not perform pre-phased before the imputation
-                            process.
+                            The build version of reference, e.g: GRCh38
+      --unprephase          Do not perform pre-phased before the imputation process.
       --regions chr:start-end
-                            Skip positions which not in these regions. This
-                            parameter could be a list of comma deleimited genome
-                            regions(e.g.: chr:start-end,chr:start-end)
+                            Skip positions which not in these regions. This parameter could be a list of comma deleimited genome regions(e.g.: chr:start-end,chr:start-end)
       --nCPU NCPU           Number of threads. [1]
 
 **Configuration file**
