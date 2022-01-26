@@ -101,7 +101,7 @@ def _do_run(cmd, checks, log_stdout=False, env=None):
             else:
 
                 # output log information
-                print("".join(debug_stdout))
+                # print("".join(debug_stdout))
                 break
 
     p.communicate()
