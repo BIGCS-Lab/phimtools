@@ -36,18 +36,20 @@ softwares are installed in your analysis environment.
 
 Reference_panel or genetic_map files are necessities and should be download from:
 
-- Eagle 
-    + download: https://alkesgroup.broadinstitute.org/Eagle/downloads/Eagle_v2.4.1.tar.gz
-- beagle
-    + genetic_maps: http://bochet.gcc.biostat.washington.edu/beagle/genetic_maps/
-- Minimac4
+- Eagle (Genetic maps files):　 https://alkesgroup.broadinstitute.org/Eagle/downloads/Eagle_v2.4.1.tar.gz
+- beagle:　　　　　　　　　　https://faculty.washington.edu/browning/beagle/beagle.html
+    + Genetic maps files:　　　http://bochet.gcc.biostat.washington.edu/beagle/genetic_maps/
+    + Reference Panels files:　http://bochet.gcc.biostat.washington.edu/beagle/1000_Genomes_phase3_v5a/
+- Minimac3:　　　　　　　　　https://genome.sph.umich.edu/wiki/Minimac3#Download
+    + Reference Panels files:　https://genome.sph.umich.edu/wiki/Minimac3#Reference_Panels_for_Download
+- Minimac4:　　　　　　　　　https://genome.sph.umich.edu/wiki/Minimac4#Installation
     + install: 
     ```
     git clone https://github.com/statgen/Minimac4.git
     cd Minimac4
     bash install.sh
     ```
-    + Detail and Reference Panels: https://genome.sph.umich.edu/wiki/Minimac4
+    + Reference Panels files:　 https://genome.sph.umich.edu/wiki/Minimac4#Reference_Panels_for_Download
 
 ### Usage
 
