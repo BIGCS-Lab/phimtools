@@ -109,21 +109,21 @@ def beagle_region(config, toolstore, input_file, output_prefix, region, referenc
 
     # set output prefix for beagle
     beagle_param_kw["out"] = output_prefix
-    #try:
+    try:
         # run beagle phasing process.
-    beagle_program = Beagle(config, toolstore, 
-                            reference_version=reference_version,
-                            reference_panel=reference_panel,
-                            chrom=genome_region.split(":")[0].lower().replace("chr", ""))
-    beagle_program.run(**beagle_param_kw)
+        beagle_program = Beagle(config, toolstore, 
+                                reference_version=reference_version,
+                                reference_panel=reference_panel,
+                                chrom=genome_region.split(":")[0].lower().replace("chr", ""))
+        beagle_program.run(**beagle_param_kw)
 
-    # get output files by ``output_prefix``
-    sub_out_phased_file = "%s.vcf.gz" % output_prefix
-    return sub_out_phased_file
+        # get output files by ``output_prefix``
+        sub_out_phased_file = "%s.vcf.gz" % output_prefix
+        return sub_out_phased_file
 
-    #except Exception as e:
-    #    Log.warn("Job for phasing %s has failed, there's something wrong happen "
-    #             "in %s.\nError: %s\n Ignore phasing.\n" % (region, input_file, e))
+    except Exception as e:
+        Log.warn("Job for phasing %s has failed, there's something wrong happen "
+                 "in %s.\nError: %s\n Ignore phasing.\n" % (region, input_file, e))
         # Just return input file. This could be happen if there is only
         # one sample in input vcf.
-    #    return input_file
+        return input_file
