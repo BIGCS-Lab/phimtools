@@ -7,7 +7,7 @@ from phimtools.tools.minimac import Minimac
 from phimtools.log import Log
 
 
-def minimac(config, input_file, output_prefix, region, reference_panel=None, options=None):
+def minimac(config, toolstore, input_file, output_prefix, region, reference_panel=None, options=None):
     """Impute for a single chromosome.
 
     Parameters:
@@ -32,8 +32,8 @@ def minimac(config, input_file, output_prefix, region, reference_panel=None, opt
     genome_region = region.split(":")
     chr_id = genome_region[0]
     if chr_id not in config["minimac"]["reference_panel"][reference_panel]:
-        Log.warn("[WARNING] The reference panel does not contain chromosome %s, "
-                 "imputation process stopped for this chromosome.\n" % chr_id)
+        Log.warn("[WARNING] The reference panel does not contain chromosome %s,"
+                 " imputation process stopped for this chromosome.\n" % chr_id)
         return
 
     # set the region for Minimac
@@ -43,7 +43,7 @@ def minimac(config, input_file, output_prefix, region, reference_panel=None, opt
         minimac_param_kw["start"] = start
         minimac_param_kw["end"] = end
 
-    minimac = Minimac(config, reference_panel=reference_panel)
+    minimac = Minimac(config, toolstore, reference_panel=reference_panel)
 
     try:
         is_good = minimac.run(**minimac_param_kw)
@@ -57,8 +57,7 @@ def minimac(config, input_file, output_prefix, region, reference_panel=None, opt
         else:
             return
 
-    except:
-        Log.warn("job for imputation %s is fail, may because can't find chromosome "
-                 "%s in %s.\n" % (region, region, input_file))
+    except:  # noqa: E722
+        Log.warn("job for imputation %s is fail, may because can't find "
+                 "chromosome %s in %s.\n" % (region, region, input_file))
         return
-

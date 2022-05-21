@@ -1,20 +1,21 @@
-java: /usr/bin/java
-
-eagle:
-    eagle: /home/wangcr/Softwares/Eagle_v2.4.1/eagle
-    genetic_map_file:
+eagle: # Do not modify
+    genetic_map_file: # Do not modify
         GRCh38: /home/wangcr/Softwares/Eagle_v2.4.1/tables/genetic_map_hg38_withX.txt.gz
 
-beagle:
-    beagle: /home/wangcr/Softwares/beagle5.2/beagle.28Jun21.220.jar
-    genetic_map_file:
-        GRCh38:
+beagle: # Do not modify
+    genetic_map_file: # Do not modify
+        GRCh38: # Do not modify
+            '21': data/beagle/test.GRCh38.chr21.genetic_map.txt
             '22': data/beagle/test.GRCh38.chr22.genetic_map.txt
+    reference_panel: # Do not modify
+        test_ref:
+            '21': data/beagle/test.GRCh38.chr21.vcf.gz
+            '22': data/beagle/test.GRCh38.chr22.vcf.gz
 
-minimac:
-    minimac: /usr/bin/minimac4
-    reference_panel:
+minimac: # Do not modify
+    reference_panel: # Do not modify
         test_panel:
+            '21':  data/beagle/ref_panel.chr21.m3vcf.gz
             '22':  data/beagle/ref_panel.chr22.m3vcf.gz
 
         1000G_P3_GRCh37:  # This is an example

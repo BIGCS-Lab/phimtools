@@ -10,15 +10,15 @@ from phimtools.launch import do
 class Minimac(object):
     """A class for Minimac3/Minimac4 program"""
 
-    def __init__(self, config, reference_panel=None):
+    def __init__(self, config, toolstore, reference_panel):
         """basical setting for Minimac"""
 
         if reference_panel is None:
             return
 
-        self.minimac = config["minimac"]["minimac"]
+        self.minimac = toolstore["minimac"]
         self.ref_panel = config["minimac"]["reference_panel"][reference_panel]
-
+        
     def help(self):
         """Help information for Minimac program"""
         return do.run("%s --help" % self.minimac)
@@ -34,7 +34,13 @@ class Minimac(object):
             Log.error("Missing 'chr' for reference panel in the Minimac command")
             return False
 
-        cmd = " ".join([self.minimac] + ["--refHaps %s" % self.ref_panel[kwargs["chr"]]] +
+        chrom = kwargs["chr"]
+        # minimac4: Non-zero value of "--start" required parameter if using "--chr" parameter.
+        if "start" not in kwargs:
+            del kwargs['chr'] 
+
+        cmd = " ".join([self.minimac] + 
+                       ["--refHaps %s" % self.ref_panel[chrom]] +
                        ["--%s %s" % (k, v) for k, v in kwargs.items()])
         do.run(cmd)
         return True
