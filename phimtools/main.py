@@ -25,7 +25,6 @@ LONG_DESC = """
 ------------------------------------------------------------------
     phimtools - A program for phasing and imputation analysis.  
 ------------------------------------------------------------------
-        (c) 2019-2022 - Shujia Huang & Chengrui Wang
         Distributed under the GNU GPLv3+ open source license.    
         Version {version}                                                     
         URL = https://github.com/BIGCS-Lab/phimtools
